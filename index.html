@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santosh Kumar Ingole - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        /* CSS Custom Properties for Theming */
+        :root {
+            --bg-main: #100f1c; /* Deep, dark purple/black */
+            --bg-section: rgba(22, 21, 38, 0.8);
+            --bg-header: rgba(16, 15, 28, 0.5);
+            --bg-card: rgba(29, 27, 49, 0.7);
+            --bg-button-secondary: #393359;
+            --bg-button-secondary-hover: #4c447c;
+            --bg-input: #393359;
+
+            --text-main: #f3f4f6;
+            --text-muted: #a3a0c2;
+            
+            --primary: #a78bfa; /* Violet-400 */
+            --primary-hover: #c4b5fd; /* Violet-300 */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+        }
+
+        /* Custom utility classes using CSS variables */
+        .text-primary { color: var(--primary); }
+        .text-muted { color: var(--text-muted); }
+        .bg-primary { background-color: var(--primary); color: var(--bg-main); }
+        .hover\:bg-primary-hover:hover { background-color: var(--primary-hover); color: var(--bg-main); }
+        .focus\:ring-primary:focus { --tw-ring-color: var(--primary); }
+        .border-primary { border-color: var(--primary); }
+        .bg-header {
+            /* Gradient for top header */
+            background: var(--bg-header); /* Use the CSS variable for consistency */
+            box-shadow: 0 2px 16px 0 rgba(167, 139, 250, 0.10);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px); /* For Safari compatibility */
+        }
+        .bg-section { background-color: var(--bg-section); }
+        .bg-card {
+            background-color: rgba(29, 27, 49, 0.7);
+            border: 1.5px solid rgba(167, 139, 250, 0.18); /* subtle violet border */
+        }
+        /* Project Card Hover Animation */
+        .project-card {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, box-shadow;
+            border: 2px solid rgba(167, 139, 250, 0.28); /* more visible on hover */
+        }
+        .project-card:hover {
+            transform: scale(1.06) translateY(-8px) rotateZ(-1deg);
+            box-shadow: 0 8px 32px 0 rgba(167, 139, 250, 0.25), 0 1.5px 8px 0 rgba(0,0,0,0.12);
+            border-color: var(--primary);
+        }
+        @keyframes project-float {
+            0% { transform: scale(1.06) translateY(-8px) rotateZ(-1deg); }
+            100% { transform: scale(1.08) translateY(-16px) rotateZ(1deg); }
+        }
+        .bg-button-secondary { background-color: var(--bg-button-secondary); }
+        .hover\:bg-button-secondary-hover:hover { background-color: var(--bg-button-secondary-hover); }
+        .bg-input { background-color: var(--bg-input); }
+        .nav-link { color: var(--text-muted); }
+        .nav-link:hover { background-color: var(--bg-button-secondary-hover); color: var(--text-main); }
+        
+        /* Custom scrollbar for a more modern look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-button-secondary);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--bg-button-secondary-hover);
+        }
+        /* Canvas for the background */
+        #constellation-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place it behind all content */
+        }
+        @keyframes float {
+  0% { transform: translateY(0px);}
+  50% { transform: translateY(-20px);}
+  100% { transform: translateY(0px);}
+}
+.hero-img-animate {
+  transform: perspective(1000px) rotateY(-10deg) rotateX(10deg); /* Increased tilt for more visible 3D effect */
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.3), 
+    0 0 60px rgba(167, 139, 250, 0.6);
+  transition: transform 0.6s ease-out, box-shadow 0.6s ease-out;
+  transform-style: preserve-3d; /* Ensure children are rendered in 3D space */
+  animation: float 4s ease-in-out infinite; /* Re-add the floating animation */
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+.fade-in-up {
+  animation: fadeInUp 1s ease-out;
+}
+        .about-img-border {
+            border: 2px solid rgba(167, 139, 250, 0.28);
+        }
+        .cert-card {
+            border: 1.5px solid rgba(167, 139, 250, 0.18);
+        }
+        .header-text-contrast, .header-text-contrast a {
+            color: #fff !important;
+            text-shadow: 0 2px 8px rgba(44, 33, 80, 0.45), 0 1px 0 #0002;
+            font-weight: 800 !important;
+        }
+        .header-text-contrast span {
+            font-weight: 800 !important; /* Keep font-weight important for all header spans */
+        }
+        .header-text-contrast a.nav-link:hover, .header-text-contrast a.nav-link:focus {
+            color: #c4b5fd !important;
+            background-color: rgba(44, 33, 80, 0.10);
+        }
+    </style>
+    <style>
+        .hero-img-animate {
+            animation: float 4s ease-in-out infinite; /* Re-add the floating animation */
+        }
+
+        .hero-image-3d {
+            transform: translateZ(20px); /* Make the image pop forward */
+            transition: transform 0.6s ease-out; /* Smooth transition */
+        }
+
+        /* Footer link active state */
+        .bg-footer a:active {
+            color: var(--primary-hover) !important; /* Change color to primary-hover when clicked */
+            transform: scale(0.95); /* Add a slight scale down effect */
+        }
+    </style>
+    <style>
+        .footer-glass-button {
+            background: rgba(255, 255, 255, 0.05); /* Lighter base background */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter base border */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 9999px; /* Make it pill-shaped for a rounder look */
+            padding: 10px 20px; /* Increased horizontal padding for a more oval shape */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+        }
+
+        .footer-glass-button:hover {
+            background: rgba(255, 255, 255, 0.15); /* Lighter background on hover */
+            border-color: rgba(255, 255, 255, 0.3); /* Lighter border on hover */
+        }
+    </style>
+    <style>
+        /* Header Glass Button styles */
+        .header-glass-button {
+            background: rgba(255, 255, 255, 0.05); /* Lighter base background */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter base border */
+            backdrop-filter: blur(5px); /* Same as footer glass button */
+            -webkit-backdrop-filter: blur(5px); /* Same as footer glass button */
+            border-radius: 9999px; /* Pill shape */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+            padding: 10px 20px; /* Increased horizontal padding for a more oval shape */
+        }
+
+        .header-glass-button:hover {
+            background: rgba(255, 255, 255, 0.15); /* Lighter background on hover */
+            border-color: rgba(255, 255, 255, 0.3); /* Lighter border on hover */
+        }
+
+        .header-glass-button:active {
+            color: var(--primary-hover) !important; /* Change color to primary-hover when clicked */
+            transform: scale(0.95); /* Add a slight scale down effect */
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <canvas id="constellation-bg"></canvas>
+
+    <!-- Header -->
+    <header class="bg-header backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="flex items-center space-x-2 text-2xl font-bold text-white header-text-contrast">
+                        <span class="inline-block w-7 h-7 rounded-full bg-gradient-to-br from-primary to-[#4c447c] shadow-md mr-2"></span>
+                        <span>Santosh<span class="text-violet-400 font-extrabold text-3xl">Kumar</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <nav class="ml-0 md:ml-10 flex items-baseline space-x-2 md:space-x-4 header-text-contrast">
+                        <a href="#home" class="nav-link text-base font-medium header-glass-button">Home</a>
+                        <a href="#about" class="nav-link text-base font-medium header-glass-button">About</a>
+                        <a href="#projects" class="nav-link text-base font-medium header-glass-button">Projects</a>
+                        <a href="#skills" class="nav-link text-base font-medium header-glass-button">Skills</a>
+                        <a href="#certifications" class="nav-link text-base font-medium header-glass-button">Certifications</a>
+                        <a href="#contact" class="nav-link text-base font-medium header-glass-button">Contact</a>
+                    </nav>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden fixed inset-0 bg-black bg-opacity-60 z-40" id="mobile-menu-backdrop"></div>
+        <div class="md:hidden hidden fixed top-16 left-0 right-0 bg-header backdrop-blur-sm z-50 header-text-contrast" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+                <a href="#home" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Home</a>
+                <a href="#about" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">About</a>
+                <a href="#projects" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Projects</a>
+                <a href="#skills" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Skills</a>
+                <a href="#certifications" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Certifications</a>
+                <a href="#contact" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex flex-col md:flex-row items-center bg-transparent px-2 sm:px-6 lg:px-8">
+            <div class="container mx-auto px-0 sm:px-6 lg:px-8 relative z-10">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
+                    <div class="md:w-1/2 w-full text-center md:text-left mb-10 md:mb-0">
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4" data-aos="fade-up">
+                            Hi, I'm <span class="text-primary">Santosh Kumar Ingole</span>
+                        </h1>
+                        <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-2 fade-in-up" data-aos="fade-up" data-aos-delay="100">FULL-STACK DEVELOPER</p>
+                        <p class="text-base sm:text-xl text-muted mb-8 max-w-xl mx-auto md:mx-0">
+                            A collaborative and results-driven Software Developer building scalable, high-performance applications.
+
+
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
+                            <a href="#projects" class="bg-primary hover:bg-primary-hover font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 w-full sm:w-auto">
+                                View My Work
+                            </a>
+                            <a href="#contact" class="bg-button-secondary hover:bg-button-secondary-hover text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 w-full sm:w-auto">
+                                Get In Touch
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 w-full flex justify-center">
+                        <div class="w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-card border-4 border-primary shadow-2xl hero-img-animate" data-aos="zoom-in" data-aos-delay="200">
+                             <img src="https://avatars.githubusercontent.com/u/155081605?v=4" 
+                                 alt="A professional headshot of Santosh Kumar Ingole"
+                                 loading="lazy"
+                                 class="w-full h-full object-cover hero-image-3d">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white" data-aos="fade-up">About Me</h2>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-4 lg:gap-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="md:w-1/3 w-full flex justify-center mb-6 md:mb-0">
+                        <img src="https://avatars.githubusercontent.com/u/155081605?v=4" 
+                             alt="An illustration of a developer at work"
+                             loading="lazy"
+                             class="rounded-lg shadow-xl w-full max-w-xs sm:max-w-sm about-img-border">
+                    </div>
+                    <div class="md:w-2/3 w-full text-lg">
+                        <p class="mb-4">
+                           I am a collaborative and results-driven Software Developer with expertise in software development, problem-solving, and the full software lifecycle. 
+                        </p>
+                        <p class="mb-6">
+                           I am skilled in building scalable, high-performance applications using modern programming languages and frameworks to meet business and technical objectives.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white" data-aos="fade-up">My Projects</h2>
+                    <p class="text-muted mt-2" data-aos="fade-up" data-aos-delay="100">Here are some of the things I've built.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Project Card 1 -->
+                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card" style="width:883px;height:400px;max-width:100%;" data-aos="fade-up" data-aos-delay="0">
+                        <div class="w-full h-full flex items-center justify-center bg-gray-900" 
+                            <img src="" alt="" class="w-full h-full object-cover" loading="lazy">
+                            <a href="https://i.ibb.co/s9rPTqqt/awt.png"><img src="https://iili.io/FvaCQ5J.md.png" alt="FvaCQ5J.md.png" border="0"></a>
+                        </div>
+                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                        <h3 class="https://i.ibb.co/s9rPTqqt/awt.png">MUSIC_APP</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">It is music learning app helps to learn multiple instruments along guidance.</p>
+                        </div>
+                    </div>
+                    <!-- Project Card 2 -->
+                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card" style="width:608px;height:409px;max-width:100%;" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-full h-full flex items-center justify-center bg-gray-900" style="height: 100%; width: 100%;">
+                        
+                        </div>
+                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                            
+                            <a href="https://freeimage.host/i/FvYQ4kb"><img src="https://iili.io/FvYQ4kb.md.png" alt="FvYQ4kb.md.png" border="0"></a>
+                            <h3 class="https://text-lg sm:text-xl font-bold text-white mb-2">TEXT_2_IMAGE_GEN</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Developed an image generator application using HTML, CSS, and JavaScript that generates AI-powered images from text prompts .</p>
+                        </div>
+                    </div>
+                    <!-- Project Card 3 -->
+                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card" style="width:883px;height:400px;max-width:100%;" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-full h-full flex items-center justify-center bg-gray-900" style="height: 100%; width: 100%;">
+             <img src="https://s3.amazonaws.com//kb-media.populi.co/record_payment_dialog.png" loading="lazy">
+             
+                        </div>
+                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">PAYMENT_RECORD_SYSTEM</h3>
+                        <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Built a responsive web application using PHP and JavaScript to manage user payment records. Designed and implemented a MySQL database with full CRUD functionality for secure data handling and efficient payment tracking.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white" data-aos="fade-up">Skills</h2>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-semibold text-white mb-4 text-center">Programming & Databases</h3>
+                        <div class="flex flex-wrap gap-4 justify-center">
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">Java</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">JAVASCRIPT</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">C</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">SQL</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">PHP</span>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="text-2xl font-semibold text-white mb-4 text-center">Web Development</h3>
+                        <div class="flex flex-wrap gap-4 justify-center">
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">HTML</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">CSS</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">JavaScript</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">PHP</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">React.js</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">Next.js</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">Tailwind CSS</span>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-semibold text-white mb-4 text-center">Soft Skills</h3>
+                        <div class="flex flex-wrap gap-4 justify-center">
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">Problem Solving</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">Critical Thinking</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">Communication</span>
+                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">Leadership</span>
+                             <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full">Adaptability</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Certifications Section -->
+        <section id="certifications" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white" data-aos="fade-up">Certifications</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Certificate Card 1 -->
+                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card backdrop-blur-sm" data-aos="fade-up" data-aos-delay="0">
+                        <div class="w-full h-48 flex items-center justify-center bg-gray-900">
+                            <img src="https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_1280/B56ZS8O_QnGsAk-/0/1738324834708?e=1756339200&v=beta&t=EOdU71o3vACQfpDzbP85v0xwuY56slMD0h6rwztgHtk" alt="AWS Cloud Computing Certificate" class="w-full h-full object-cover cursor-pointer" loading="lazy">
+                        </div>
+                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">AWS Cloud Computing Certificate</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Amazon Web Services</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm">View Credential</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Certificate Card 2 -->
+                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card backdrop-blur-sm" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-full h-48 flex items-center justify-center bg-gray-900">
+                            <img src="https://media.licdn.com/dms/image/v2/D5622AQEfSbH0eVyR_w/feedshare-shrink_800/B56ZfrKf4SHQAg-/0/1751997091117?e=1756339200&v=beta&t=7RqlyvD04ZUhHbMtGlYF7Y5RnTywoCmsJcBPiU90CZo" alt="Full-Stack Web Development Internship Certificate" class="w-full h-full object-cover cursor-pointer" loading="lazy">
+                        </div>
+                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Full-Stack Web Development Internship Certificate</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Vitvara Technologies</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm">View Credential</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Certificate Card 3 -->
+                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card backdrop-blur-sm" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-full h-48 flex items-center justify-center bg-gray-900">
+                            <img src="https://media.licdn.com/dms/image/v2/D5622AQFgDRkzrG8Qtw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1704886931440?e=1756339200&v=beta&t=l_NmmqEFxece8Px1_mdsiL8XATrRLyCu1jv7NNDFe58" alt="Frontend Development Certificate" class="w-full h-full object-cover cursor-pointer" loading="lazy">
+                        </div>
+                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Frontend Development</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Nexel</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm">View Credential</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Certificate Card 4 -->
+                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card backdrop-blur-sm" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-full h-48 flex items-center justify-center bg-gray-900">
+                            <img src="https://media.licdn.com/dms/image/v2/D5622AQGYayAUqO7ohw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1724984846651?e=1756339200&v=beta&t=ZBy8THBB9D6dJ1CNNpeybd7yittwzAjyfS_-peIplTI" alt="Database Certification in Information Technology" class="w-full h-full object-cover cursor-pointer" loading="lazy">
+                        </div>
+                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Database Certification in Information Technology</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Srinivas University</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm">View Credential</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+  
+        <!-- Resume Section -->
+        <section id="resume" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="max-w-2xl mx-auto bg-card rounded-lg overflow-hidden shadow-lg p-8 project-card backdrop-blur-sm" data-aos="zoom-in">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Ready for New Challenges</h2>
+                    <p class="text-muted mb-8 max-w-xl mx-auto">
+                        I'm always looking for exciting opportunities to grow and contribute to innovative projects.
+                    </p>
+                    <a href="https://i.ibb.co/XnNbJN0/Screenshot-2025-07-28-215843.png" id="resume-download-btn" class="bg-gradient-to-r from-primary to-emerald-500 hover:from-primary-hover hover:to-emerald-400 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/50 inline-block border-2 border-primary">
+                        Download Resume
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <!-- Left Column: Contact Form -->
+                    <div class="bg-card rounded-lg shadow-lg p-6 sm:p-8 backdrop-blur-sm project-card" data-aos="fade-right" data-aos-delay="0">
+                        <h3 class="text-muted uppercase text-sm font-semibold mb-2">Get In Touch</h3>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Contact.</h2>
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-white text-lg font-medium mb-2">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="What's your name?" class="bg-input text-white border border-gray-600 rounded-md p-3 w-full focus:ring-primary focus:border-primary transition duration-200">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-white text-lg font-medium mb-2">Your Email</label>
+                                <input type="email" id="email" name="email" placeholder="What's your email?" class="bg-input text-white border border-gray-600 rounded-md p-3 w-full focus:ring-primary focus:border-primary transition duration-200">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-white text-lg font-medium mb-2">Your Message</label>
+                                <textarea id="message" name="message" rows="5" placeholder="What do you want to say?" class="bg-input text-white border border-gray-600 rounded-md p-3 w-full focus:ring-primary focus:border-primary transition duration-200"></textarea>
+                            </div>
+                            <button type="submit" class="bg-gradient-to-r from-primary to-emerald-500 hover:from-primary-hover hover:to-emerald-400 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 w-full">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right Column: Contact Info & Image -->
+                    <div class="bg-card rounded-lg shadow-lg p-6 sm:p-8 backdrop-blur-sm project-card" data-aos="fade-left" data-aos-delay="100">
+                        <img src="https://avatars.githubusercontent.com/u/155081605?v=4" alt="Santosh Kumar Ingole" class="rounded-full border-4 border-primary shadow-lg w-32 h-32 object-cover mb-6">
+                        <h3 class="text-2xl font-bold text-white mb-4">Let's Connect</h3>
+                        <div class="space-y-4 text-left w-full max-w-xs">
+                            <div class="flex items-center space-x-3 text-muted">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
+                                <span>santoshingole578@gmail.com</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-muted">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" /></svg>
+                                <span>Mangalore, Karnataka, India</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-muted">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1v3.5c0 .55-.45 1-1 1C10.76 21 3 13.24 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" /></svg>
+                                <span>+91 8904037354</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4 mt-8">
+                            <a href="https://github.com/santoshkumar187" target="_blank" class="text-muted hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                                <span class="sr-only">GitHub</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="text-muted hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                                <span class="sr-only">LinkedIn</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                            </a>
+                            <a href="https://www.instagram.com/santoshkumaringole/?igsh=MTk5Z3Y4emd5ZHVyYw%3D%3D" target="_blank" class="text-muted hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                                <span class="sr-only">Instagram</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C8.74 0 8.332.014 7.053.072 5.775.13 4.882.26 4.092.659 3.313 1.059 2.671 1.71 2.029 2.353.774 3.992.072 6.126.014 7.404.002 8.344 0 8.74 0 12c0 3.26.014 3.658.072 4.936.058 1.278.19 2.17.659 2.968.4.779 1.05 1.42 1.703 2.063 1.637 1.637 3.75 2.339 4.936 2.397 1.278.058 1.676.072 4.936.072 3.26 0 3.658-.014 4.936-.072 1.278-.058 2.17-.19 2.968-.659.779-.4 1.42-1.05 2.063-1.703 1.637-1.637 2.339-3.75 2.397-4.936.058-1.278.072-1.676.072-4.936 0-3.26-.014-3.658-.072-4.936-.058-1.278-.19-2.17-.659-2.968-.4-.779-1.05-1.42-1.703-2.063C20.008.774 17.882.072 16.604.014 15.326.002 14.936 0 12 0zm0 2.13c3.238 0 3.626.013 4.885.072 1.171.055 1.838.252 2.395.474.57.234 1.006.505 1.408.907.4.402.673.837.907 1.407.222.557.42 1.224.474 2.395.059 1.258.072 1.647.072 4.885s-.013 3.626-.072 4.885c-.055 1.171-.252 1.838-.474 2.395-.234.57-.505 1.006-.907 1.408-.402.4-.837.673-1.407.907-.557.222-1.224.42-2.395.474-1.258.059-1.647.072-4.885.072s-3.626-.013-4.885-.072c-1.171-.055-1.838-.252-2.395-.474-.57-.234-1.006-.505-1.408-.907-.4-.402-.673-.837-1.407-.907-.557-.222-1.224-.42-2.395-.474C8.344 2.143 8.74 2.13 12 2.13zm0 3.65c-3.179 0-5.75 2.57-5.75 5.75s2.571 5.75 5.75 5.75 5.75-2.57 5.75-5.75-2.571-5.75-5.75-5.75zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm6.49-10.718c-.767 0-1.39.623-1.39 1.39s.623 1.39 1.39 1.39 1.39-.623 1.39-1.39-.623-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
+                            </a>
+                            <a href="mailto:santoshingole578@gmail.com" class="text-muted hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                                <span class="sr-only">Email</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-footer py-6">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <p class="text-gray-100 font-semibold">© 2023 Santosh Kumar Ingole. All rights reserved.</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Home</a>
+                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">About</a>
+                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Projects</a>
+                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Certifications</a>
+                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Contact</a>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="https://github.com/santoshkumar187" target="_blank" class="text-gray-100 hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <span class="sr-only">GitHub</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="text-gray-100 hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://www.instagram.com/santoshkumaringole/?igsh=MTk5Z3Y4emd5ZHVyYw%3D%3D" target="_blank" class="text-gray-100 hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C8.74 0 8.332.014 7.053.072 5.775.13 4.882.26 4.092.659 3.313 1.059 2.671 1.71 2.029 2.353.774 3.992.072 6.126.014 7.404.002 8.344 0 8.74 0 12c0 3.26.014 3.658.072 4.936.058 1.278.19 2.17.659 2.968.4.779 1.05 1.42 1.703 2.063 1.637 1.637 3.75 2.339 4.936 2.397 1.278.058 1.676.072 4.936.072 3.26 0 3.658-.014 4.936-.072 1.278-.058 2.17-.19 2.968-.659.779-.4 1.42-1.05 2.063-1.703 1.637-1.637 2.339-3.75 2.397-4.936.058-1.278.072-1.676.072-4.936 0-3.26-.014-3.658-.072-4.936-.058-1.278-.19-2.17-.659-2.968-.4-.779-1.05-1.42-1.703-2.063C20.008.774 17.882.072 16.604.014 15.326.002 14.936 0 12 0zm0 2.13c3.238 0 3.626.013 4.885.072 1.171.055 1.838.252 2.395.474.57.234 1.006.505 1.408.907.4.402.673.837.907 1.407.222.557.42 1.224.474 2.395.059 1.258.072 1.647.072 4.885s-.013 3.626-.072 4.885c-.055 1.171-.252 1.838-.474 2.395-.234.57-.505 1.006-.907 1.408-.402.4-.837.673-1.407.907-.557.222-1.224.42-2.395.474-1.258.059-1.647.072-4.885.072s-3.626-.013-4.885-.072c-1.171-.055-1.838-.252-2.395-.474-.57-.234-1.006-.505-1.408-.907-.4-.402-.673-.837-1.407-.907-.557-.222-1.224-.42-2.395-.474C8.344 2.143 8.74 2.13 12 2.13zm0 3.65c-3.179 0-5.75 2.57-5.75 5.75s2.571 5.75 5.75 5.75 5.75-2.57 5.75-5.75-2.571-5.75-5.75-5.75zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm6.49-10.718c-.767 0-1.39.623-1.39 1.39s.623 1.39 1.39 1.39 1.39-.623 1.39-1.39-.623-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="mailto:santoshingole578@gmail.com" class="text-gray-100 hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <span class="sr-only">Email</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Existing AOS, Mobile Menu, and Constellation BG scripts remain below -->
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const menuIconOpen = mobileMenuButton.querySelector('svg:first-child');
+        const menuIconClose = mobileMenuButton.querySelector('svg:last-child');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuBackdrop.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+
+        const navLinks = document.querySelectorAll('#mobile-menu a, header nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBackdrop.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+    <script>
+        // JavaScript for Live Constellation Background
+        const canvas = document.getElementById('constellation-bg');
+        const ctx = canvas.getContext('2d');
+
+        let points = [];
+        const mouse = { x: null, y: null, maxDistance: 150 };
+        const connectionDistance = 100;
+        let numPoints;
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            // Adjust point density based on screen size for performance
+            numPoints = Math.floor(canvas.width * canvas.height / 20000);
+        }
+
+        // Point object (or "Star")
+        function Point(x, y) {
+            this.x = x || Math.random() * canvas.width;
+            this.y = y || Math.random() * canvas.height;
+            // Slower velocity for a "little live" feel
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
+            this.radius = Math.random() * 2 + 1;
+        }
+
+        Point.prototype.update = function() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Wrap around edges for seamless looping
+            if (this.x > canvas.width + 5) this.x = -5;
+            if (this.x < -5) this.x = canvas.width + 5;
+            if (this.y > canvas.height + 5) this.y = -5;
+            if (this.y < -5) this.y = canvas.height + 5;
+        };
+
+        Point.prototype.draw = function() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(196, 181, 253, 0.8)'; // Light purple points
+            ctx.fill();
+        };
+
+        function init() {
+            setCanvasSize();
+            points = [];
+            for (let i = 0; i < numPoints; i++) {
+                points.push(new Point());
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw points
+            points.forEach(point => {
+                point.update();
+                point.draw();
+            });
+
+            // Draw connections between points
+            for (let i = 0; i < points.length; i++) {
+                for (let j = i + 1; j < points.length; j++) {
+                    const dist = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
+                    if (dist < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.lineTo(points[j].x, points[j].y);
+                        // Make lines fainter the further apart they are
+                        ctx.strokeStyle = `rgba(196, 181, 253, ${1 - dist / connectionDistance})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+                
+                // Draw connections to the mouse cursor
+                if (mouse.x && mouse.y) {
+                    const distToMouse = Math.hypot(points[i].x - mouse.x, points[i].y - mouse.y);
+                    if (distToMouse < mouse.maxDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = `rgba(196, 181, 253, ${0.3 * (1 - distToMouse / mouse.maxDistance)})`;
+                        ctx.lineWidth = 0.7;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Event Listeners
+        window.addEventListener('resize', init);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        init();
+        animate();
+    </script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000, // Animation duration in ms
+        once: true,     // Only animate once
+      });
+    </script>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[9999] hidden p-4">
+        <!-- Container for image and the left close button -->
+        <div class="relative max-w-full max-h-full flex justify-center items-center">
+            <img id="modal-image" src="" alt="Zoomed Certificate" class="max-w-full max-h-full object-contain cursor-pointer" />
+            <button id="close-modal-left" class="absolute top-4 left-4 text-white px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary text-base font-semibold">Close</button>
+        </div>
+        <!-- The right close button (for the entire modal) remains here -->
+        <button id="close-modal" class="absolute top-4 right-4 text-white text-4xl font-bold bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center p-2">&times;</button>
+    </div>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[9999] hidden p-4">
+        <div id="resume-modal-content" class="relative max-w-full max-h-full">
+            <img id="resume-modal-image" src="" alt="My Resume" class="max-w-full max-h-full object-contain" />
+            <!-- Buttons positioned absolutely inside the relative image container -->
+            <a id="resume-download-link" href="#" download class="absolute top-4 left-4 bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 z-10">Download</a>
+            <button id="resume-close-btn" class="absolute top-16 left-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 z-10">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const certImages = document.querySelectorAll('#certifications .project-card img');
+        const imageModal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const closeModalButton = document.getElementById('close-modal');
+        const closeModalButtonLeft = document.getElementById('close-modal-left');
+
+        certImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                modalImage.src = e.target.src;
+                imageModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+            });
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            imageModal.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+
+        closeModalButtonLeft.addEventListener('click', () => {
+            imageModal.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+
+        // Close modal when clicking outside the image (on the modal background) or on the image itself
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal || e.target === modalImage) {
+                imageModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+
+        const resumeDownloadBtn = document.getElementById('resume-download-btn');
+        const resumeModal = document.getElementById('resume-modal');
+        const resumeModalImage = document.getElementById('resume-modal-image');
+        const resumeDownloadLink = document.getElementById('resume-download-link');
+        const resumeCloseBtn = document.getElementById('resume-close-btn');
+
+        resumeDownloadBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            const imageUrl = resumeDownloadBtn.getAttribute('href');
+            resumeModalImage.src = imageUrl;
+            resumeDownloadLink.href = imageUrl;
+            resumeModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        resumeCloseBtn.addEventListener('click', () => {
+            resumeModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        });
+
+        // Close resume modal when clicking outside the image or on the image itself
+        resumeModal.addEventListener('click', (e) => {
+            if (e.target === resumeModal || e.target === resumeModalImage) {
+                resumeModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Update this listener to handle the actual download on the download button click
+        resumeDownloadLink.addEventListener('click', async (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            const imageUrl = resumeModalImage.src; // Get the currently displayed image source
+            try {
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+                const objectUrl = URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.href = objectUrl;
+                a.download = 'Santosh_Kumar_Ingole_Resume.png'; // Set a default filename
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+                URL.revokeObjectURL(objectUrl); // Clean up the object URL
+            } catch (error) {
+                console.error('Error downloading resume:', error);
+                alert('Could not download resume. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
