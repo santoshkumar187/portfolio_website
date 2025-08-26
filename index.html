@@ -191,6 +191,20 @@
             transform: scale(0.95); /* Add a slight scale down effect */
         }
     </style>
+    <style>
+        #mobile-menu {
+            transform: translateX(100%); /* Hidden by default */
+        }
+        #mobile-menu.is-open {
+            transform: translateX(0); /* Slide in */
+        }
+        #mobile-menu-backdrop.is-open {
+            display: block; /* Show backdrop */
+        }
+        #mobile-menu-backdrop {
+            display: none; /* Hidden by default */
+        }
+    </style>
 </head>
 <body class="text-gray-200">
 
@@ -230,9 +244,9 @@
             </div>
         </div>
         <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="md:hidden hidden fixed inset-0 bg-black bg-opacity-60 z-40" id="mobile-menu-backdrop"></div>
-        <div class="md:hidden hidden fixed top-16 left-0 right-0 bg-header backdrop-blur-sm z-50 header-text-contrast" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+        <div class="fixed inset-0 bg-black bg-opacity-60 z-40" id="mobile-menu-backdrop"></div>
+        <div class="fixed top-0 right-0 h-full w-64 bg-header backdrop-blur-sm z-50 transform transition-transform duration-300 ease-in-out header-text-contrast flex flex-col" id="mobile-menu">
+            <div class="px-2 pt-16 pb-3 space-y-1 sm:px-3 flex flex-col">
                 <a href="#home" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Home</a>
                 <a href="#about" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">About</a>
                 <a href="#projects" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Projects</a>
@@ -245,15 +259,15 @@
 
     <main class="pt-16">
         <!-- Hero Section -->
-        <section id="home" class="min-h-screen flex flex-col md:flex-row items-center bg-transparent px-2 sm:px-6 lg:px-8">
+        <section id="home" class="min-h-screen flex flex-col md:flex-row items-center bg-transparent px-2 sm:px-6 lg:px-8 py-10">
             <div class="container mx-auto px-0 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
-                    <div class="md:w-1/2 w-full text-center md:text-left mb-10 md:mb-0">
-                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4" data-aos="fade-up">
+                    <div class="md:w-1/2 w-full text-center mb-10 md:mb-0">
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 text-center" data-aos="fade-up">
                             Hi, I'm <span class="text-primary">Santosh Kumar Ingole</span>
                         </h1>
-                        <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-2 fade-in-up" data-aos="fade-up" data-aos-delay="100">FULL-STACK DEVELOPER</p>
-                        <p class="text-base sm:text-xl text-muted mb-8 max-w-xl mx-auto md:mx-0">
+                        <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-2 fade-in-up text-center" data-aos="fade-up" data-aos-delay="100">FULL-STACK DEVELOPER</p>
+                        <p class="text-base sm:text-xl text-muted mb-8 max-w-xl mx-auto text-center">
                             A collaborative and results-driven Software Developer building scalable, high-performance applications.
 
 
@@ -287,12 +301,12 @@
                 </div>
                 <div class="flex flex-col md:flex-row items-center gap-4 lg:gap-8" data-aos="fade-up" data-aos-delay="100">
                     <div class="md:w-1/3 w-full flex justify-center mb-6 md:mb-0">
-                        <img src="https://i.pinimg.com/originals/79/9e/0d/799e0d7779f6ea6c3a89885ff60c55af.gif" 
+                        <img src="https://8allocate.com/wp-content/uploads/2024/01/The-Future-of-Software-Engineering_-Predictions-for-2024.jpg" 
                              alt="An illustration of a developer at work"
                              loading="lazy"
                              class="rounded-lg shadow-xl w-full max-w-xs sm:max-w-sm about-img-border">
                     </div>
-                    <div class="md:w-2/3 w-full text-lg">
+                    <div class="md:w-2/3 w-full text-lg text-center md:text-left">
                         <p class="mb-4">
                            I am a collaborative and results-driven Software Developer with expertise in software development, problem-solving, and the full software lifecycle. 
                         </p>
@@ -320,7 +334,7 @@
                             </a>
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                        <h3 class="text-lg sm:text-xl font-bold text-white mb-2">MUSIC_APP</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">MUSIC_APP</h3>
                             <p class="text-muted mb-4 flex-grow text-sm sm:text-base"></p>
                             <div class="mt-auto">
                                 <a href="https://github.com/santoshkumar187/Music-learning-app" target="_blank" class="inline-block bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 text-sm">
@@ -338,7 +352,7 @@
                         </div>
                         <div class="p-3 sm:p-3 flex flex-col flex-grow">
                             
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">TEXT_2_IMAGE_GEN</h3>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">TEXT_2_IMAGE_GEN</h3>
                             <p class="text-muted mb-4 flex-grow text-sm sm:text-base"></p>
                             <div class="mt-auto">
                                 <a href="https://github.com/santoshkumar187/Text_to_Image_Gen" target="_blank" class="inline-block bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 text-sm">
@@ -355,7 +369,7 @@
              </a>
                         </div>
                         <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-3">PAYMENT_RECORD_SYSTEM</h3>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-3 text-center">PAYMENT_RECORD_SYSTEM</h3>
                         <p class="text-muted mb-5 flex-grow text-sm sm:text-base"></p>
                         <div class="mt-auto">
                                 <a href="https://github.com/santoshkumar187/Pay_Record_System" target="_blank" class="inline-block bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 text-sm">
@@ -424,10 +438,10 @@
                             <img src="https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_1280/B56ZS8O_QnGsAk-/0/1738324834708?e=1756339200&v=beta&t=EOdU71o3vACQfpDzbP85v0xwuY56slMD0h6rwztgHtk" alt="AWS Cloud Computing Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">AWS Cloud Computing Certificate</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Amazon Web Services</p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm">View Credential</a>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">AWS Cloud Computing Certificate</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Amazon Web Services</p>
+                            <div class="flex flex-wrap gap-2 mt-auto justify-center w-full">
+                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
                             </div>
                         </div>
                     </div>
@@ -437,10 +451,10 @@
                             <img src="https://media.licdn.com/dms/image/v2/D5622AQEfSbH0eVyR_w/feedshare-shrink_800/B56ZfrKf4SHQAg-/0/1751997091117?e=1756339200&v=beta&t=7RqlyvD04ZUhHbMtGlYF7Y5RnTywoCmsJcBPiU90CZo" alt="Full-Stack Web Development Internship Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Full-Stack Web Development Internship Certificate</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Vitvara Technologies</p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm">View Credential</a>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Full-Stack Web Development Internship Certificate</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Vitvara Technologies</p>
+                            <div class="flex flex-wrap gap-2 mt-auto justify-center w-full">
+                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
                             </div>
                         </div>
                     </div>
@@ -450,10 +464,10 @@
                             <img src="https://media.licdn.com/dms/image/v2/D5622AQFgDRkzrG8Qtw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1704886931440?e=1756339200&v=beta&t=l_NmmqEFxece8Px1_mdsiL8XATrRLyCu1jv7NNDFe58" alt="Frontend Development Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Frontend Development</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Nexel</p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm">View Credential</a>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Frontend Development</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Nexel</p>
+                            <div class="flex flex-wrap gap-2 mt-auto justify-center w-full">
+                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
                             </div>
                         </div>
                     </div>
@@ -463,10 +477,10 @@
                             <img src="https://media.licdn.com/dms/image/v2/D5622AQGYayAUqO7ohw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1724984846651?e=1756339200&v=beta&t=ZBy8THBB9D6dJ1CNNpeybd7yittwzAjyfS_-peIplTI" alt="Database Certification in Information Technology" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Database Certification in Information Technology</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base">Srinivas University</p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm">View Credential</a>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Database Certification in Information Technology</h3>
+                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Srinivas University</p>
+                            <div class="flex flex-wrap gap-2 mt-auto justify-center w-full">
+                                <a href="#" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
                             </div>
                         </div>
                     </div>
@@ -506,9 +520,9 @@
 
                     <!-- Right Column: Contact Info & Image -->
                     <div class="bg-card rounded-lg shadow-lg p-6 sm:p-8 backdrop-blur-sm project-card" data-aos="fade-left" data-aos-delay="100">
-                        <img src="https://avatars.githubusercontent.com/u/155081605?v=4" alt="Santosh Kumar Ingole" class="rounded-full border-4 border-primary shadow-lg w-32 h-32 object-cover mb-6">
-                        <h3 class="text-2xl font-bold text-white mb-4">Let's Connect</h3>
-                        <div class="space-y-4 text-left w-full max-w-xs">
+                        <img src="https://avatars.githubusercontent.com/u/155081605?v=4" alt="Santosh Kumar Ingole" class="rounded-full border-4 border-primary shadow-lg w-32 h-32 object-cover mb-6 mx-auto">
+                        <h3 class="text-2xl font-bold text-white mb-4 text-center">Let's Connect</h3>
+                        <div class="space-y-4 text-left w-full max-w-xs mx-auto text-center">
                             <div class="flex items-center space-x-3 text-muted">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
                                 <span>santoshingole578@gmail.com</span>
@@ -522,22 +536,22 @@
                                 <span>+91 8904037354</span>
                             </div>
                         </div>
-                        <div class="flex space-x-4 mt-8">
-                            <a href="https://github.com/santoshkumar187" target="_blank" class="text-muted hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <div class="flex space-x-4 mt-8 justify-center">
+                            <a href="https://github.com/santoshkumar187" target="_blank" class="text-muted hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
                                 <span class="sr-only">GitHub</span>
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
                             </a>
-                            <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="text-muted hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                            <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="text-muted hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
                                 <span class="sr-only">LinkedIn</span>
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
                             </a>
-                            <a href="https://www.instagram.com/santoshkumaringole/?igsh=MTk5Z3Y4emd5ZHVyYw%3D%3D" target="_blank" class="text-muted hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                            <a href="https://www.instagram.com/santoshkumaringole/?igsh=MTk5Z3Y4emd5ZHVyYw%3D%3D" target="_blank" class="text-muted hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
                                 <span class="sr-only">Instagram</span>
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C8.74 0 8.332.014 7.053.072 5.775.13 4.882.26 4.092.659 3.313 1.059 2.671 1.71 2.029 2.353.774 3.992.072 6.126.014 7.404.002 8.344 0 8.74 0 12c0 3.26.014 3.658.072 4.936.058 1.278.19 2.17.659 2.968.4.779 1.05 1.42 1.703 2.063 1.637 1.637 3.75 2.339 4.936 2.397 1.278.058 1.676.072 4.936.072 3.26 0 3.658-.014 4.936-.072 1.278-.058 2.17-.19 2.968-.659.779-.4 1.42-1.05 2.063-1.703 1.637-1.637 2.339-3.75 2.397-4.936.058-1.278.072-1.676.072-4.936 0-3.26-.014-3.658-.072-4.936-.058-1.278-.19-2.17-.659-2.968-.4-.779-1.05-1.42-1.703-2.063C20.008.774 17.882.072 16.604.014 15.326.002 14.936 0 12 0zm0 2.13c3.238 0 3.626.013 4.885.072 1.171.055 1.838.252 2.395.474.57.234 1.006.505 1.408.907.4.402.673.837.907 1.407.222.557.42 1.224.474 2.395.059 1.258.072 1.647.072 4.885s-.013 3.626-.072 4.885c-.055 1.171-.252 1.838-.474 2.395-.234.57-.505 1.006-.907 1.408-.402.4-.837.673-1.407.907-.557.222-1.224.42-2.395.474-1.258.059-1.647.072-4.885.072s-3.626-.013-4.885-.072c-1.171-.055-1.838-.252-2.395-.474-.57-.234-1.006-.505-1.408-.907-.4-.402-.673-.837-1.407-.907-.557-.222-1.224-.42-2.395-.474C8.344 2.143 8.74 2.13 12 2.13zm0 3.65c-3.179 0-5.75 2.57-5.75 5.75s2.571 5.75 5.75 5.75 5.75-2.57 5.75-5.75-2.571-5.75-5.75-5.75zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm6.49-10.718c-.767 0-1.39.623-1.39 1.39s.623 1.39 1.39 1.39 1.39-.623 1.39-1.39-.623-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C8.74 0 8.332.014 7.053.072 5.775.13 4.882.26 4.092.659 3.313 1.059 2.671 1.71 2.029 2.353.774 3.992.072 6.126.014 7.404.002 8.344 0 8.74 0 12c0 3.26.014 3.658.072 4.936.058 1.278.19 2.17.659 2.968.4.779 1.05 1.42 1.703 2.063 1.637 1.637 3.75 2.339 4.936 2.397 1.278.058 1.676.072 4.936.072 3.26 0 3.658-.014 4.936-.072 1.278-.058 2.17-.19 2.968-.659.779-.4 1.42-1.05 2.063-1.703 1.637-1.637 2.339-3.75 2.397-4.936.058-1.278.072-1.676.072-4.936 0-3.26-.014-3.658-.072-4.936-.058-1.278-.19-2.17-.659-2.968-.4-.779-1.05-1.42-1.703-2.063C20.008.774 17.882.072 16.604.014 15.326.002 14.936 0 12 0zm0 2.13c3.238 0 3.626.013 4.885.072 1.171.055 1.838.252 2.395.474.57.234 1.006.505 1.408.907.4.402.673.837.907 1.407.222.557.42 1.224.474 2.395.059 1.258.072 1.647.072 4.885s-.013 3.626-.072 4.885c-.055 1.171-.252 1.838-.474 2.395-.234.57-.505 1.006-.907 1.408-.402.4-.837.673-1.407.907-.557.222-1.224.42-2.395.474-1.258.059-1.647.072-4.885.072s-3.626-.013-4.885-.072c-1.171-.055-1.838-.252-2.395-.474-.57-.234-1.006-.505-1.408-.907-.4-.402-.673-.837-1.407-.907-.557-.222-1.224-.42-2.395-.474C8.344 2.143 8.74 2.13 12 2.13zm0 3.65c-3.179 0-5.75 2.57-5.75 5.75s2.571 5.75 5.75 5.75 5.75-2.57 5.75-5.75-2.571-5.75-5.75-5.75zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm6.49-10.718c-.767 0-1.39.623-1.39 1.39s.623 1.39 1.39 1.39 1.39-.623 1.39-1.39-.623-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
                             </a>
-                            <a href="mailto:santoshingole578@gmail.com" class="text-muted hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                            <a href="mailto:santoshingole578@gmail.com" class="text-muted hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
                                 <span class="sr-only">Email</span>
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
                             </a>
                         </div>
                     </div>
@@ -558,22 +572,22 @@
                     <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Certifications</a>
                     <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Contact</a>
                 </div>
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="https://github.com/santoshkumar187" target="_blank" class="text-gray-100 hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                <div class="flex space-x-4 mt-4 md:mt-0 justify-center">
+                    <a href="https://github.com/santoshkumar187" target="_blank" class="text-gray-100 hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
                         <span class="sr-only">GitHub</span>
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
                     </a>
-                    <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="text-gray-100 hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                    <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="text-gray-100 hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
                         <span class="sr-only">LinkedIn</span>
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
                     </a>
-                    <a href="https://www.instagram.com/santoshkumaringole/?igsh=MTk5Z3Y4emd5ZHVyYw%3D%3D" target="_blank" class="text-gray-100 hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                    <a href="https://www.instagram.com/santoshkumaringole/?igsh=MTk5Z3Y4emd5ZHVyYw%3D%3D" target="_blank" class="text-gray-100 hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
                         <span class="sr-only">Instagram</span>
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C8.74 0 8.332.014 7.053.072 5.775.13 4.882.26 4.092.659 3.313 1.059 2.671 1.71 2.029 2.353.774 3.992.072 6.126.014 7.404.002 8.344 0 8.74 0 12c0 3.26.014 3.658.072 4.936.058 1.278.19 2.17.659 2.968.4.779 1.05 1.42 1.703 2.063 1.637 1.637 3.75 2.339 4.936 2.397 1.278.058 1.676.072 4.936.072 3.26 0 3.658-.014 4.936-.072 1.278-.058 2.17-.19 2.968-.659.779-.4 1.42-1.05 2.063-1.703 1.637-1.637 2.339-3.75 2.397-4.936.058-1.278.072-1.676.072-4.936 0-3.26-.014-3.658-.072-4.936-.058-1.278-.19-2.17-.659-2.968-.4-.779-1.05-1.42-1.703-2.063C20.008.774 17.882.072 16.604.014 15.326.002 14.936 0 12 0zm0 2.13c3.238 0 3.626.013 4.885.072 1.171.055 1.838.252 2.395.474.57.234 1.006.505 1.408.907.4.402.673.837.907 1.407.222.557.42 1.224.474 2.395.059 1.258.072 1.647.072 4.885s-.013 3.626-.072 4.885c-.055 1.171-.252 1.838-.474 2.395-.234.57-.505 1.006-.907 1.408-.402.4-.837.673-1.407.907-.557.222-1.224.42-2.395.474-1.258.059-1.647.072-4.885.072s-3.626-.013-4.885-.072c-1.171-.055-1.838-.252-2.395-.474-.57-.234-1.006-.505-1.408-.907-.4-.402-.673-.837-1.407-.907-.557-.222-1.224-.42-2.395-.474C8.344 2.143 8.74 2.13 12 2.13zm0 3.65c-3.179 0-5.75 2.57-5.75 5.75s2.571 5.75 5.75 5.75 5.75-2.57 5.75-5.75-2.571-5.75-5.75-5.75zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm6.49-10.718c-.767 0-1.39.623-1.39 1.39s.623 1.39 1.39 1.39 1.39-.623 1.39-1.39-.623-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C8.74 0 8.332.014 7.053.072 5.775.13 4.882.26 4.092.659 3.313 1.059 2.671 1.71 2.029 2.353.774 3.992.072 6.126.014 7.404.002 8.344 0 8.74 0 12c0 3.26.014 3.658.072 4.936.058 1.278.19 2.17.659 2.968.4.779 1.05 1.42 1.703 2.063 1.637 1.637 3.75 2.339 4.936 2.397 1.278.058 1.676.072 4.936.072 3.26 0 3.658-.014 4.936-.072 1.278-.058 2.17-.19 2.968-.659.779-.4 1.42-1.05 2.063-1.703 1.637-1.637 2.339-3.75 2.397-4.936.058-1.278.072-1.676.072-4.936 0-3.26-.014-3.658-.072-4.936-.058-1.278-.19-2.17-.659-2.968-.4-.779-1.05-1.42-1.703-2.063C20.008.774 17.882.072 16.604.014 15.326.002 14.936 0 12 0zm0 2.13c3.238 0 3.626.013 4.885.072 1.171.055 1.838.252 2.395.474.57.234 1.006.505 1.408.907.4.402.673.837.907 1.407.222.557.42 1.224.474 2.395.059 1.258.072 1.647.072 4.885s-.013 3.626-.072 4.885c-.055 1.171-.252 1.838-.474 2.395-.234.57-.505 1.006-.907 1.408-.402.4-.837.673-1.407.907-.557.222-1.224.42-2.395.474-1.258.059-1.647.072-4.885.072s-3.626-.013-4.885-.072c-1.171-.055-1.838-.252-2.395-.474-.57-.234-1.006-.505-1.408-.907-.4-.402-.673-.837-1.407-.907-.557-.222-1.224-.42-2.395-.474C8.344 2.143 8.74 2.13 12 2.13zm0 3.65c-3.179 0-5.75 2.57-5.75 5.75s2.571 5.75 5.75 5.75 5.75-2.57 5.75-5.75-2.571-5.75-5.75-5.75zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm6.49-10.718c-.767 0-1.39.623-1.39 1.39s.623 1.39 1.39 1.39 1.39-.623 1.39-1.39-.623-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
                     </a>
-                    <a href="mailto:santoshingole578@gmail.com" class="text-gray-100 hover:text-white text-2xl p-2 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                    <a href="mailto:santoshingole578@gmail.com" class="text-gray-100 hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
                         <span class="sr-only">Email</span>
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
                     </a>
                 </div>
             </div>
@@ -598,20 +612,24 @@
         const menuIconClose = mobileMenuButton.querySelector('svg:last-child');
 
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenuBackdrop.classList.toggle('hidden');
+            const isMenuOpen = mobileMenu.classList.contains('is-open');
+
+            mobileMenu.classList.toggle('is-open');
+            mobileMenuBackdrop.classList.toggle('is-open');
             menuIconOpen.classList.toggle('hidden');
             menuIconClose.classList.toggle('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', !isMenuOpen);
         });
 
         const navLinks = document.querySelectorAll('#mobile-menu a, header nav a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenuBackdrop.classList.add('hidden');
+                if (mobileMenu.classList.contains('is-open')) {
+                    mobileMenu.classList.remove('is-open');
+                    mobileMenuBackdrop.classList.remove('is-open');
                     menuIconOpen.classList.remove('hidden');
                     menuIconClose.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', false);
                 }
             });
         });
