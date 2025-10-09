@@ -1,1 +1,1 @@
-porfolio link : https://github.com/santoshkumar187/portfolio_website/
+porfolio link : https://santoshkumar187.github.io/portfolio_website/
