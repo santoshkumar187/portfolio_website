@@ -53,15 +53,15 @@
             background-color: rgba(29, 27, 49, 0.7);
             border: 1.5px solid rgba(167, 139, 250, 0.18); /* subtle violet border */
         }
-        /* Project Card Hover Animation */
+        /* Project Card Hover Animation - GPU friendly (use transform: translate3d and avoid rotate on hover) */
         .project-card {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform, box-shadow;
-            border: 2px solid rgba(167, 139, 250, 0.28); /* more visible on hover */
+            transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+            border: 2px solid rgba(167, 139, 250, 0.18);
         }
         .project-card:hover {
-            transform: scale(1.06) translateY(-8px) rotateZ(-1deg);
-            box-shadow: 0 8px 32px 0 rgba(167, 139, 250, 0.25), 0 1.5px 8px 0 rgba(0,0,0,0.12);
+            transform: translate3d(0, -8px, 0) scale3d(1.04,1.04,1);
+            box-shadow: 0 8px 28px rgba(167,139,250,0.18);
             border-color: var(--primary);
         }
         @keyframes project-float {
@@ -102,14 +102,12 @@
   50% { transform: translateY(-20px);}
   100% { transform: translateY(0px);}
 }
-.hero-img-animate {
-  transform: perspective(1000px) rotateY(-10deg) rotateX(10deg); /* Increased tilt for more visible 3D effect */
-  box-shadow: 
-    0 15px 30px rgba(0, 0, 0, 0.3), 
-    0 0 60px rgba(167, 139, 250, 0.6);
-  transition: transform 0.6s ease-out, box-shadow 0.6s ease-out;
-  transform-style: preserve-3d; /* Ensure children are rendered in 3D space */
-  animation: float 4s ease-in-out infinite; /* Re-add the floating animation */
+                .hero-img-animate {
+    transform: perspective(1000px) translateZ(0); /* keep composited layer but avoid heavy 3D rotates by default */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.28), 0 0 36px rgba(167,139,250,0.45);
+    transition: transform 420ms cubic-bezier(0.2,0,0.2,1), box-shadow 420ms cubic-bezier(0.2,0,0.2,1);
+    transform-style: preserve-3d; /* children in 3D space */
+    animation: float 4s ease-in-out infinite; /* gentle floating */
 }
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px);}
@@ -138,13 +136,22 @@
         }
     </style>
     <style>
-        .hero-img-animate {
-            animation: float 4s ease-in-out infinite; /* Re-add the floating animation */
+        /* Respect user reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-img-animate,
+            .project-card,
+            .footer-glass-button,
+            .header-glass-button,
+            .bg-footer a,
+            .nav-link {
+                animation: none !important;
+                transition: none !important;
+            }
         }
 
         .hero-image-3d {
-            transform: translateZ(20px); /* Make the image pop forward */
-            transition: transform 0.6s ease-out; /* Smooth transition */
+            transform: translateZ(20px);
+            transition: transform 420ms cubic-bezier(0.2,0,0.2,1);
         }
 
         /* Footer link active state */
@@ -435,52 +442,53 @@
                     <!-- Certificate Card 1 -->
                     <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="0">
                         <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_800/B56ZS8O_QnGsAg-/0/1738324834679?e=1759363200&v=beta&t=cNzUcZfd9K8TOrlJ-dnw1XO_HGQfNvDsmUht4MEp4ko" alt="AWS Cloud Computing Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
+                            <img src="https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_1280/B56ZS8O_QnGsAk-/0/1738324834708?e=1762992000&v=beta&t=UjhYvBE4M5ceeux5iCBwKloTpa91O6GLlHz9NGnqdHU" alt="AWS Cloud Computing Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
                             <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">AWS Cloud Computing Certificate</h3>
                             <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Amazon Web Services</p>
                             <div class="flex flex-wrap gap-2 mt-auto justify-start w-full">
-                                <a href="https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_800/B56ZS8O_QnGsAg-/0/1738324834679?e=1759363200&v=beta&t=cNzUcZfd9K8TOrlJ-dnw1XO_HGQfNvDsmUht4MEp4ko" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
+                                <a href="https://drive.google.com/file/d/1kxcitUIpg4G4Zy09quxQoV7LL2sL4X_q/view?usp=drivesdk" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
                             </div>
                         </div>
                     </div>
                     <!-- Certificate Card 2 -->
                     <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="100">
                         <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D5622AQFO30-Sm6vVsA/feedshare-shrink_800/B56ZjmyJ7ZHAAg-/0/1756218567829?e=1759363200&v=beta&t=5LUxXgdjxEKtyv85FsvmX29wb-tNyV8Z4gLN85WtzgM" alt="Full-Stack Web Development Internship Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
+                            <img src="https://media.licdn.com/dms/image/v2/D5622AQFO30-Sm6vVsA/feedshare-shrink_1280/B56ZjmyJ7ZHAAs-/0/1756218567874?e=1762992000&v=beta&t=x0OQbavBotIF7g__jP94Vod5udJ6YhvLHdZTBbsCkbg" alt="Full-Stack Web Development Internship Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
                             <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Full-Stack Web Development Internship Certificate</h3>
                             <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Vitvara Technologies</p>
                             <div class="flex flex-wrap gap-2 mt-auto justify-start w-full">
-                                <a href="https://media.licdn.com/dms/image/v2/D5622AQFO30-Sm6vVsA/feedshare-shrink_800/B56ZjmyJ7ZHAAg-/0/1756218567829?e=1759363200&v=beta&t=5LUxXgdjxEKtyv85FsvmX29wb-tNyV8Z4gLN85WtzgM" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
+                                <a href="https://drive.google.com/file/d/1jb5ylOcuxs7zBuN1dGdb6mq-51Bg2WfK/view?usp=drivesdk" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
                             </div>
                         </div>
                     </div>
                     <!-- Certificate Card 3 -->
                     <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="200">
                         <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D5622AQFgDRkzrG8Qtw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1704886931440?e=1759363200&v=beta&t=_PuMhkbjpa-kFXqZQY2bd3qQnOYofntkyG9hBLduez4" alt="Frontend Development Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
+                            <img src="https://media.licdn.com/dms/image/v2/D5622AQFgDRkzrG8Qtw/feedshare-shrink_800/feedshare-shrink_800/0/1704886931492?e=1762992000&v=beta&t=6w6HKuo6Zrq39L26FmbQCsoZohmC9GS1lmM1EtYaeqE" alt="Frontend Development Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
                             <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Frontend Development</h3>
                             <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Nexel</p>
                             <div class="flex flex-wrap gap-2 mt-auto justify-start w-full">
-                                <a href="https://media.licdn.com/dms/image/v2/D5622AQFgDRkzrG8Qtw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1704886931440?e=1759363200&v=beta&t=_PuMhkbjpa-kFXqZQY2bd3qQnOYofntkyG9hBLduez4" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
+                                <a href="https://drive.google.com/file/d/15f9FtUQgQHeYnFQp_OBsuAx0O-ff6pxv/view" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
                             </div>
                         </div>
                     </div>
                     <!-- Certificate Card 4 -->
                     <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="300">
                         <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D5622AQGYayAUqO7ohw/feedshare-shrink_800/feedshare-shrink_800/0/1724984846628?e=1759968000&v=beta&t=3YTuYvmosLOfG43gnQPrQ4PtWFHs1iQ8XNF2vAGbCag" alt="Database Certification in Information Technology" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
+                            <img src="https://media.licdn.com/dms/image/v2/D5622AQGYayAUqO7ohw/feedshare-shrink_800/feedshare-shrink_800/0/1724984846628?e=1762992000&v=beta&t=B7U5XwPtagE8OceTwCCj3gDHt53UzUnB5hBSpqynp2k" alt="Database Certification in Information Technology" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
                         </div>
                         <div class="p-3 sm:p-4 flex flex-col flex-grow">
                             <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Database Certification in Information Technology</h3>
                             <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Srinivas University</p>
                             <div class="flex flex-wrap gap-2 mt-auto justify-start w-full">
-                                <a href="https://media.licdn.com/dms/image/v2/D5622AQGYayAUqO7ohw/feedshare-shrink_800/feedshare-shrink_800/0/1724984846628?e=1759968000&v=beta&t=3YTuYvmosLOfG43gnQPrQ4PtWFHs1iQ8XNF2vAGbCag" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
+                                <a href="https://drive.google.com/file/d/1b71-auVBNiOzW-_N2v_uhAsjW8q271E4/view" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -635,100 +643,142 @@
         });
     </script>
     <script>
-        // JavaScript for Live Constellation Background
+        // JavaScript for Live Constellation Background (optimized)
         const canvas = document.getElementById('constellation-bg');
         const ctx = canvas.getContext('2d');
 
         let points = [];
-        const mouse = { x: null, y: null, maxDistance: 150 };
-        const connectionDistance = 100;
+        const mouse = { x: null, y: null, maxDistance: 140 };
+        const connectionDistance = 100; // px
+        const connectionDistanceSq = connectionDistance * connectionDistance;
         let numPoints;
+        // Cap the maximum connections per frame to avoid O(n^2) blowups on large screens
+        const MAX_CONNECTIONS_PER_FRAME = 300;
 
         function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            // Adjust point density based on screen size for performance
-            numPoints = Math.floor(canvas.width * canvas.height / 20000);
+            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            canvas.width = Math.floor(window.innerWidth * dpr);
+            canvas.height = Math.floor(window.innerHeight * dpr);
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            ctx.scale(dpr, dpr);
+
+            // Adjust point density based on screen size for performance (fewer points)
+            const area = window.innerWidth * window.innerHeight;
+            numPoints = Math.max(18, Math.floor(area / 40000)); // reduce density divisor
         }
 
-        // Point object (or "Star")
         function Point(x, y) {
-            this.x = x || Math.random() * canvas.width;
-            this.y = y || Math.random() * canvas.height;
-            // Slower velocity for a "little live" feel
-            this.vx = (Math.random() - 0.5) * 0.3;
-            this.vy = (Math.random() - 0.5) * 0.3;
-            this.radius = Math.random() * 2 + 1;
+            this.x = x === undefined ? Math.random() * window.innerWidth : x;
+            this.y = y === undefined ? Math.random() * window.innerHeight : y;
+            // slightly slower velocities for subtle motion
+            this.vx = (Math.random() - 0.5) * 0.25;
+            this.vy = (Math.random() - 0.5) * 0.25;
+            this.radius = Math.random() * 1.6 + 0.6;
         }
 
         Point.prototype.update = function() {
             this.x += this.vx;
             this.y += this.vy;
 
-            // Wrap around edges for seamless looping
-            if (this.x > canvas.width + 5) this.x = -5;
-            if (this.x < -5) this.x = canvas.width + 5;
-            if (this.y > canvas.height + 5) this.y = -5;
-            if (this.y < -5) this.y = canvas.height + 5;
+            // Wrap around edges
+            if (this.x > window.innerWidth + 6) this.x = -6;
+            if (this.x < -6) this.x = window.innerWidth + 6;
+            if (this.y > window.innerHeight + 6) this.y = -6;
+            if (this.y < -6) this.y = window.innerHeight + 6;
         };
 
         Point.prototype.draw = function() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(196, 181, 253, 0.8)'; // Light purple points
+            ctx.fillStyle = 'rgba(196, 181, 253, 0.85)';
             ctx.fill();
         };
 
         function init() {
+            // reset any existing scaling on the context before setting size
+            ctx.setTransform(1,0,0,1,0,0);
             setCanvasSize();
-            points = [];
-            for (let i = 0; i < numPoints; i++) {
-                points.push(new Point());
-            }
+            points.length = 0;
+            for (let i = 0; i < numPoints; i++) points.push(new Point());
         }
 
-        function animate() {
-            requestAnimationFrame(animate);
+        let rafId = null;
+        let lastFrameTime = 0;
+        const FRAME_MIN_DT = 1000 / 50; // aim for max 50fps when busy
+
+        function animate(now) {
+            if (document.hidden) {
+                rafId = requestAnimationFrame(animate);
+                return; // keep requesting but don't render heavy work
+            }
+
+            // Throttle heavy rendering when tabs are swapped or frame rate is high
+            if (now - lastFrameTime < FRAME_MIN_DT) {
+                rafId = requestAnimationFrame(animate);
+                return;
+            }
+            lastFrameTime = now;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Update and draw points
-            points.forEach(point => {
-                point.update();
-                point.draw();
-            });
-
-            // Draw connections between points
             for (let i = 0; i < points.length; i++) {
+                points[i].update();
+                points[i].draw();
+            }
+
+            // Draw connections (optimized: squared distances, early exit cap)
+            let connectionsDrawn = 0;
+            for (let i = 0; i < points.length; i++) {
+                const pi = points[i];
                 for (let j = i + 1; j < points.length; j++) {
-                    const dist = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
-                    if (dist < connectionDistance) {
+                    const pj = points[j];
+                    const dx = pi.x - pj.x;
+                    const dy = pi.y - pj.y;
+                    const distSq = dx * dx + dy * dy;
+                    if (distSq < connectionDistanceSq) {
+                        const alpha = 1 - distSq / connectionDistanceSq;
                         ctx.beginPath();
-                        ctx.moveTo(points[i].x, points[i].y);
-                        ctx.lineTo(points[j].x, points[j].y);
-                        // Make lines fainter the further apart they are
-                        ctx.strokeStyle = `rgba(196, 181, 253, ${1 - dist / connectionDistance})`;
-                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(pi.x, pi.y);
+                        ctx.lineTo(pj.x, pj.y);
+                        ctx.strokeStyle = `rgba(196, 181, 253, ${0.45 * alpha})`;
+                        ctx.lineWidth = 0.6;
                         ctx.stroke();
+                        connectionsDrawn++;
+                        if (connectionsDrawn > MAX_CONNECTIONS_PER_FRAME) break;
                     }
                 }
-                
-                // Draw connections to the mouse cursor
-                if (mouse.x && mouse.y) {
-                    const distToMouse = Math.hypot(points[i].x - mouse.x, points[i].y - mouse.y);
-                    if (distToMouse < mouse.maxDistance) {
+                if (connectionsDrawn > MAX_CONNECTIONS_PER_FRAME) break;
+
+                // Mouse connections
+                if (mouse.x != null && mouse.y != null) {
+                    const mdx = pi.x - mouse.x;
+                    const mdy = pi.y - mouse.y;
+                    const mdSq = mdx * mdx + mdy * mdy;
+                    const maxSq = mouse.maxDistance * mouse.maxDistance;
+                    if (mdSq < maxSq) {
+                        const alpha = 1 - mdSq / maxSq;
                         ctx.beginPath();
-                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.moveTo(pi.x, pi.y);
                         ctx.lineTo(mouse.x, mouse.y);
-                        ctx.strokeStyle = `rgba(196, 181, 253, ${0.3 * (1 - distToMouse / mouse.maxDistance)})`;
+                        ctx.strokeStyle = `rgba(196, 181, 253, ${0.28 * alpha})`;
                         ctx.lineWidth = 0.7;
                         ctx.stroke();
                     }
                 }
             }
+
+            rafId = requestAnimationFrame(animate);
         }
 
-        // Event Listeners
-        window.addEventListener('resize', init);
+        // Event listeners: resize + pointer
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+            // debounce resize
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(init, 220);
+        });
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
@@ -738,8 +788,28 @@
             mouse.y = null;
         });
 
-        init();
-        animate();
+        // Pause drawing when tab is hidden to save CPU
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (rafId) cancelAnimationFrame(rafId);
+                rafId = null;
+            } else {
+                if (!rafId) rafId = requestAnimationFrame(animate);
+            }
+        });
+
+        // Defer init/animation startup until browser is idle to avoid jank on page open
+        function startConstellation() {
+            try { init(); } catch (e) { /* ignore */ }
+            if (!rafId) rafId = requestAnimationFrame(animate);
+        }
+
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => startConstellation(), {timeout: 800});
+        } else {
+            // fallback
+            setTimeout(() => startConstellation(), 300);
+        }
     </script>
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
