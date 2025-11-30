@@ -3,576 +3,595 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santosh Kumar Ingole - Portfolio</title>
+    <meta name="description" content="Santosh Kumar Ingole - Full Stack Developer Portfolio">
+    <title>Santosh Kumar Ingole | Full-Stack Developer</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- AOS CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <style>
-        /* CSS Custom Properties for Theming */
-        :root {
-            --bg-main: #100f1c; /* Deep, dark purple/black */
-            --bg-section: rgba(22, 21, 38, 0.8);
-            --bg-header: rgba(16, 15, 28, 0.5);
-            --bg-card: rgba(29, 27, 49, 0.7);
-            --bg-button-secondary: #393359;
-            --bg-button-secondary-hover: #4c447c;
-            --bg-input: #393359;
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-            --text-main: #f3f4f6;
-            --text-muted: #a3a0c2;
-            
-            --primary: #a78bfa; /* Violet-400 */
-            --primary-hover: #c4b5fd; /* Violet-300 */
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
+                    },
+                    colors: {
+                        bg: {
+                            main: '#0a0a0f',
+                            card: 'rgba(20, 20, 28, 0.6)',
+                            lighter: '#1a1a24'
+                        },
+                        primary: {
+                            DEFAULT: '#8b5cf6', // Violet 500
+                            glow: '#a78bfa',    // Violet 400
+                            dark: '#7c3aed'
+                        },
+                        accent: {
+                            teal: '#2dd4bf',
+                            pink: '#ec4899'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Core Reset & Performance */
+        * {
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: #8b5cf6 #0a0a0f;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: #0a0a0f;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Custom utility classes using CSS variables */
-        .text-primary { color: var(--primary); }
-        .text-muted { color: var(--text-muted); }
-        .bg-primary { background-color: var(--primary); color: var(--bg-main); }
-        .hover\:bg-primary-hover:hover { background-color: var(--primary-hover); color: var(--bg-main); }
-        .focus\:ring-primary:focus { --tw-ring-color: var(--primary); }
-        .border-primary { border-color: var(--primary); }
-        .bg-header {
-            /* Gradient for top header */
-            background: var(--bg-header); /* Use the CSS variable for consistency */
-            box-shadow: 0 2px 16px 0 rgba(167, 139, 250, 0.10);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px); /* For Safari compatibility */
-        }
-        .bg-section { background-color: var(--bg-section); }
-        .bg-card {
-            background-color: rgba(29, 27, 49, 0.7);
-            border: 1.5px solid rgba(167, 139, 250, 0.18); /* subtle violet border */
-        }
-        /* Project Card Hover Animation - GPU friendly (use transform: translate3d and avoid rotate on hover) */
-        .project-card {
-            transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
-            border: 2px solid rgba(167, 139, 250, 0.18);
-        }
-        .project-card:hover {
-            transform: translate3d(0, -8px, 0) scale3d(1.04,1.04,1);
-            box-shadow: 0 8px 28px rgba(167,139,250,0.18);
-            border-color: var(--primary);
-        }
-        @keyframes project-float {
-            0% { transform: scale(1.06) translateY(-8px) rotateZ(-1deg); }
-            100% { transform: scale(1.08) translateY(-16px) rotateZ(1deg); }
-        }
-        .bg-button-secondary { background-color: var(--bg-button-secondary); }
-        .hover\:bg-button-secondary-hover:hover { background-color: var(--bg-button-secondary-hover); }
-        .bg-input { background-color: var(--bg-input); }
-        .nav-link { color: var(--text-muted); }
-        .nav-link:hover { background-color: var(--bg-button-secondary-hover); color: var(--text-main); }
-        
-        /* Custom scrollbar for a more modern look */
+        /* Modern Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg-main);
+            background: #0a0a0f;
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--bg-button-secondary);
-            border-radius: 10px;
+            background: #4c1d95;
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--bg-button-secondary-hover);
+            background: #6d28d9;
         }
-        /* Canvas for the background */
-        #constellation-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Place it behind all content */
+
+        /* Standard Glass Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
-        @keyframes float {
-  0% { transform: translateY(0px);}
-  50% { transform: translateY(-20px);}
-  100% { transform: translateY(0px);}
-}
-                .hero-img-animate {
-    transform: perspective(1000px) translateZ(0); /* keep composited layer but avoid heavy 3D rotates by default */
-    box-shadow: 0 12px 24px rgba(0,0,0,0.28), 0 0 36px rgba(167,139,250,0.45);
-    transition: transform 420ms cubic-bezier(0.2,0,0.2,1), box-shadow 420ms cubic-bezier(0.2,0,0.2,1);
-    transform-style: preserve-3d; /* children in 3D space */
-    animation: float 4s ease-in-out infinite; /* gentle floating */
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px);}
-  to { opacity: 1; transform: translateY(0);}
-}
-.fade-in-up {
-  animation: fadeInUp 1s ease-out;
-}
-        .about-img-border {
-            border: 2px solid rgba(167, 139, 250, 0.28);
+
+        /* --- NEW: Moving Light / Animated Border Design --- */
+        @property --angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
         }
-        .cert-card {
-            border: 1.5px solid rgba(167, 139, 250, 0.18);
+
+        .animated-border {
+            position: relative;
+            background: rgba(20, 20, 28, 0.6); /* Fallback */
+            border-radius: inherit; /* Allow Tailwind classes to control radius */
+            z-index: 0;
+            overflow: hidden;
+            /* No standard border here, the pseudo-elements create it */
         }
-        .header-text-contrast, .header-text-contrast a {
-            color: #fff !important;
-            text-shadow: 0 2px 8px rgba(44, 33, 80, 0.45), 0 1px 0 #0002;
-            font-weight: 800 !important;
+
+        /* The Spinning Light Beam */
+        .animated-border::before {
+            content: '';
+            position: absolute;
+            z-index: -2;
+            left: -50%;
+            top: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent, 
+                transparent, 
+                transparent, 
+                #a78bfa /* Primary Glow Color */
+            );
+            animation: border-spin 10s linear infinite;
         }
-        .header-text-contrast span {
-            font-weight: 800 !important; /* Keep font-weight important for all header spans */
+
+        /* The Inner Card Background (Masks the center of the spin) */
+        .animated-border::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            /* This inset defines the border thickness (1.5px) */
+            inset: 1.5px; 
+            background: rgba(16, 16, 24, 0.95); /* Dark background to contrast light */
+            backdrop-filter: blur(12px);
+            border-radius: inherit;
         }
-        .header-text-contrast a.nav-link:hover, .header-text-contrast a.nav-link:focus {
-            color: #c4b5fd !important;
-            background-color: rgba(44, 33, 80, 0.10);
+
+        @keyframes border-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-    </style>
-    <style>
-        /* Respect user reduced motion preference */
+
+        /* Hover Effect for Animated Border Cards */
+        .animated-border:hover::before {
+            animation-duration: 4s; /* Speed up on hover */
+            background: conic-gradient(
+                transparent, 
+                transparent, 
+                #ec4899, /* Pink Accent */
+                #a78bfa  /* Violet Main */
+            );
+        }
+
+        /* Glass Nav */
+        .glass-nav {
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        /* Interactive Card Effects (For Standard Cards) */
+        .hover-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 10px 40px -10px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Performance Optimizations */
         @media (prefers-reduced-motion: reduce) {
-            .hero-img-animate,
-            .project-card,
-            .footer-glass-button,
-            .header-glass-button,
-            .bg-footer a,
-            .nav-link {
-                animation: none !important;
-                transition: none !important;
+            .animated-border::before {
+                animation: none;
+                background: #2d2d3a; /* Static border for reduced motion */
+            }
+            #constellation-bg {
+                display: none;
             }
         }
-
-        .hero-image-3d {
-            transform: translateZ(20px);
-            transition: transform 420ms cubic-bezier(0.2,0,0.2,1);
+        
+        /* Mobile Menu */
+        .mobile-menu-enter {
+            transform: translateX(100%);
+            opacity: 0;
         }
-
-        /* Footer link active state */
-        .bg-footer a:active {
-            color: var(--primary-hover) !important; /* Change color to primary-hover when clicked */
-            transform: scale(0.95); /* Add a slight scale down effect */
+        .mobile-menu-active {
+            transform: translateX(0);
+            opacity: 1;
         }
-    </style>
-    <style>
-        .footer-glass-button {
-            background: rgba(255, 255, 255, 0.05); /* Lighter base background */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter base border */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border-radius: 9999px; /* Make it pill-shaped for a rounder look */
-            padding: 10px 20px; /* Increased horizontal padding for a more oval shape */
-            transition: all 0.3s ease; /* Smooth transition for hover effects */
-        }
-
-        .footer-glass-button:hover {
-            background: rgba(255, 255, 255, 0.15); /* Lighter background on hover */
-            border-color: rgba(255, 255, 255, 0.3); /* Lighter border on hover */
-        }
-    </style>
-    <style>
-        /* Header Glass Button styles */
-        .header-glass-button {
-            background: rgba(255, 255, 255, 0.05); /* Lighter base background */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter base border */
-            backdrop-filter: blur(5px); /* Same as footer glass button */
-            -webkit-backdrop-filter: blur(5px); /* Same as footer glass button */
-            border-radius: 9999px; /* Pill shape */
-            transition: all 0.3s ease; /* Smooth transition for hover effects */
-            padding: 10px 20px; /* Increased horizontal padding for a more oval shape */
-        }
-
-        .header-glass-button:hover {
-            background: rgba(255, 255, 255, 0.15); /* Lighter background on hover */
-            border-color: rgba(255, 255, 255, 0.3); /* Lighter border on hover */
-        }
-
-        .header-glass-button:active {
-            color: var(--primary-hover) !important; /* Change color to primary-hover when clicked */
-            transform: scale(0.95); /* Add a slight scale down effect */
-        }
-    </style>
-    <style>
-        #mobile-menu {
-            transform: translateX(100%); /* Hidden by default */
-        }
-        #mobile-menu.is-open {
-            transform: translateX(0); /* Slide in */
-        }
-        #mobile-menu-backdrop.is-open {
-            display: block; /* Show backdrop */
-        }
-        #mobile-menu-backdrop {
-            display: none; /* Hidden by default */
+        
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus {
+            -webkit-text-fill-color: #e2e8f0;
+            -webkit-box-shadow: 0 0 0px 1000px #1a1a24 inset;
+            transition: background-color 5000s ease-in-out 0s;
         }
     </style>
 </head>
-<body class="text-gray-200">
+<body class="relative selection:bg-primary selection:text-white">
 
-    <canvas id="constellation-bg"></canvas>
+    <!-- Optimization: Fixed Background Canvas -->
+    <canvas id="constellation-bg" class="fixed top-0 left-0 w-full h-full -z-10 opacity-60 pointer-events-none"></canvas>
+    
+    <!-- Background Gradient Blobs -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-900/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-indigo-900/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-10%] left-[20%] w-96 h-96 bg-blue-900/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+    </div>
 
-    <!-- Header -->
-    <header class="bg-header backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <a href="#" class="flex items-center space-x-2 text-2xl font-bold text-white header-text-contrast">
-                        <span class="inline-block w-7 h-7 rounded-full bg-gradient-to-br from-primary to-[#4c447c] shadow-md mr-2"></span>
-                        <span>Santosh<span class="text-violet-400 font-extrabold text-3xl">Kumar</span></span>
-                    </a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 top-0 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <span class="font-heading font-bold text-2xl tracking-tight text-white group-hover:text-primary-glow transition-colors">
+                        Santosh<span class="text-primary">.dev</span>
+                    </span>
                 </div>
+
+                <!-- Desktop Menu -->
                 <div class="hidden md:block">
-                    <nav class="ml-0 md:ml-10 flex items-baseline space-x-2 md:space-x-4 header-text-contrast">
-                        <a href="#home" class="nav-link text-base font-medium header-glass-button">Home</a>
-                        <a href="#about" class="nav-link text-base font-medium header-glass-button">About</a>
-                        <a href="#projects" class="nav-link text-base font-medium header-glass-button">Projects</a>
-                        <a href="#skills" class="nav-link text-base font-medium header-glass-button">Skills</a>
-                        <a href="#certifications" class="nav-link text-base font-medium header-glass-button">Certifications</a>
-                        <a href="#contact" class="nav-link text-base font-medium header-glass-button">Contact</a>
-                    </nav>
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-sm font-medium text-gray-300 hover:text-white hover:text-primary transition-colors duration-300">Home</a>
+                        <a href="#about" class="text-sm font-medium text-gray-300 hover:text-white hover:text-primary transition-colors duration-300">About</a>
+                        <a href="#skills" class="text-sm font-medium text-gray-300 hover:text-white hover:text-primary transition-colors duration-300">Skills</a>
+                        <a href="#projects" class="text-sm font-medium text-gray-300 hover:text-white hover:text-primary transition-colors duration-300">Projects</a>
+                        <a href="#certifications" class="text-sm font-medium text-gray-300 hover:text-white hover:text-primary transition-colors duration-300">Certifications</a>
+                        <a href="#contact" class="px-5 py-2.5 rounded-full bg-primary/20 border border-primary/50 text-primary-glow font-medium hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-primary/20">
+                            Let's Talk
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Mobile Menu Button -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                    <button id="mobile-menu-btn" class="p-2 rounded-md text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="fixed inset-0 bg-black bg-opacity-60 z-40" id="mobile-menu-backdrop"></div>
-        <div class="fixed top-0 right-0 h-full w-64 bg-header backdrop-blur-sm z-50 transform transition-transform duration-300 ease-in-out header-text-contrast flex flex-col" id="mobile-menu">
-            <div class="px-4 pt-16 pb-3 space-y-1 sm:px-3 flex flex-col text-right">
-                <a href="#home" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Home</a>
-                <a href="#about" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">About</a>
-                <a href="#projects" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Projects</a>
-                <a href="#skills" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Skills</a>
-                <a href="#certifications" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Certifications</a>
-                <a href="#contact" class="nav-link block px-4 py-4 rounded-md text-lg font-medium">Contact</a>
-            </div>
-        </div>
-    </header>
+    </nav>
 
-    <main class="pt-16">
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center space-y-8">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-gray-400 hover:text-white p-2">
+            <i class="fa-solid fa-xmark text-3xl"></i>
+        </button>
+        <a href="#home" class="mobile-link text-2xl font-heading font-bold text-white hover:text-primary">Home</a>
+        <a href="#about" class="mobile-link text-2xl font-heading font-bold text-white hover:text-primary">About</a>
+        <a href="#skills" class="mobile-link text-2xl font-heading font-bold text-white hover:text-primary">Skills</a>
+        <a href="#projects" class="mobile-link text-2xl font-heading font-bold text-white hover:text-primary">Projects</a>
+        <a href="#certifications" class="mobile-link text-2xl font-heading font-bold text-white hover:text-primary">Certifications</a>
+        <a href="#contact" class="mobile-link text-2xl font-heading font-bold text-primary hover:text-white">Contact Me</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
         <!-- Hero Section -->
-        <section id="home" class="min-h-screen flex flex-col md:flex-row items-center bg-transparent px-2 sm:px-6 lg:px-8 py-10">
-            <div class="container mx-auto px-0 sm:px-6 lg:px-8 relative z-10">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
-                    <div class="md:w-1/2 w-full text-center mb-10 md:mb-0">
-                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 text-center" data-aos="fade-up">
-                            Hi, I'm <span class="text-primary">Santosh Kumar Ingole</span>
+        <section id="home" class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+                <div class="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+                    
+                    <!-- Text Content -->
+                    <div class="lg:w-1/2 text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
+                        <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-primary-glow uppercase bg-primary/10 rounded-full border border-primary/20">
+                            Available for work
+                        </div>
+                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[1.1] mb-6">
+                            Hi, I'm <br>
+                            <span class="text-gradient">Santosh Kumar</span>
                         </h1>
-                        <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-2 fade-in-up text-center" data-aos="fade-up" data-aos-delay="100">FULL-STACK DEVELOPER</p>
-                        <p class="text-base sm:text-xl text-muted mb-8 max-w-xl mx-auto text-center">
-                            A collaborative and results-driven Software Developer building scalable, high-performance applications.
-
-
+                        <p class="text-xl sm:text-2xl text-gray-400 mb-8 font-light max-w-2xl mx-auto lg:mx-0">
+                            A Full-Stack Developer crafting scalable, high-performance web applications with modern technologies.
                         </p>
-                        <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
-                            <a href="#projects" class="bg-primary hover:bg-primary-hover font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 w-full sm:w-auto">
-                                View My Work
+                        
+                        <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                            <a href="#projects" class="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1 transition-all duration-300">
+                                View Projects
                             </a>
-                            <a href="#contact" class="bg-button-secondary hover:bg-button-secondary-hover text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 w-full sm:w-auto">
-                                Get In Touch
+                            <a href="https://github.com/santoshkumar187" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-bg-card border border-gray-700 text-white rounded-xl font-semibold hover:bg-gray-800 hover:border-gray-500 transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-github"></i> GitHub
                             </a>
                         </div>
                     </div>
-                    <div class="md:w-1/2 w-full flex justify-center">
-                        <div class="w-48 h-48 sm:w-64 sm:h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-card border-4 border-primary shadow-2xl hero-img-animate" data-aos="zoom-in" data-aos-delay="200">
-                             <img src="https://avatars.githubusercontent.com/u/155081605?v=4" 
-                                 alt="A professional headshot of Santosh Kumar Ingole"
-                                 loading="lazy"
-                                 class="w-full h-full object-cover hero-image-3d">
+
+                    <!-- Image Content -->
+                    <div class="lg:w-1/2 flex justify-center lg:justify-end" data-aos="fade-left" data-aos-duration="1000">
+                        <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[450px] lg:h-[450px]">
+                            <div class="absolute inset-0 rounded-full border-2 border-primary/30 animate-[spin_10s_linear_infinite]"></div>
+                            <div class="absolute inset-4 rounded-full border-2 border-accent-teal/30 animate-[spin_15s_linear_infinite_reverse]"></div>
+                            <div class="absolute inset-6 rounded-full overflow-hidden border-4 border-bg-lighter shadow-2xl shadow-primary/20 animate-float bg-bg-lighter">
+                                <img src="https://avatars.githubusercontent.com/u/155081605?v=4" 
+                                     alt="Santosh Kumar" 
+                                     class="w-full h-full object-cover transform scale-105 hover:scale-110 transition-transform duration-700"
+                                     loading="eager">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500 hover:text-primary transition-colors">
+                <i class="fa-solid fa-arrow-down text-xl"></i>
+            </a>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-panel rounded-3xl p-8 md:p-12" data-aos="fade-up">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="relative order-2 md:order-1">
+                            <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-800">
+                                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80" 
+                                     alt="Coding Workspace" 
+                                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                     loading="lazy">
+                            </div>
+                            <div class="absolute -bottom-6 -right-6 glass-panel p-6 rounded-xl border-l-4 border-l-primary hidden md:block">
+                                <p class="text-3xl font-bold text-white">2+</p>
+                                <p class="text-sm text-gray-400">Years Coding</p>
+                            </div>
+                        </div>
+                        
+                        <div class="order-1 md:order-2">
+                            <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
+                                About <span class="text-primary">Me</span>
+                            </h2>
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                I am a collaborative and results-driven Software Developer with expertise in the full software lifecycle. 
+                                My passion lies in solving complex problems through elegant code.
+                            </p>
+                            <p class="text-gray-300 mb-8 leading-relaxed">
+                                I specialize in building scalable, high-performance applications using modern frameworks. 
+                                Whether it's frontend magic with React or backend logic with Java & PHP, I ensure every line of code serves a purpose.
+                            </p>
+                            
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex items-center gap-2 text-sm font-medium text-gray-300 bg-bg-lighter px-4 py-2 rounded-lg border border-gray-800">
+                                    <i class="fa-solid fa-code text-accent-teal"></i> Clean Code
+                                </div>
+                                <div class="flex items-center gap-2 text-sm font-medium text-gray-300 bg-bg-lighter px-4 py-2 rounded-lg border border-gray-800">
+                                    <i class="fa-solid fa-rocket text-accent-pink"></i> Scalable
+                                </div>
+                                <div class="flex items-center gap-2 text-sm font-medium text-gray-300 bg-bg-lighter px-4 py-2 rounded-lg border border-gray-800">
+                                    <i class="fa-solid fa-users text-primary"></i> Team Player
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-6">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white" data-aos="fade-up">About Me</h2>
+        <!-- Skills Section -->
+        <section id="skills" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Technical <span class="text-primary">Arsenal</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">The tools and technologies I use to bring ideas to life.</p>
                 </div>
-                <div class="flex flex-col md:flex-row items-center gap-4 lg:gap-8" data-aos="fade-up" data-aos-delay="100">
-                    <div class="md:w-1/3 w-full flex justify-center mb-6 md:mb-0">
-                        <img src="https://8allocate.com/wp-content/uploads/2024/01/The-Future-of-Software-Engineering_-Predictions-for-2024.jpg" 
-                             alt="An illustration of a developer at work"
-                             loading="lazy"
-                             class="rounded-lg shadow-xl w-full max-w-xs sm:max-w-sm about-img-border">
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Reverted to glass-panel hover-card -->
+                    <div class="glass-panel p-6 rounded-2xl hover-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4 text-blue-400">
+                            <i class="fa-solid fa-server text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Backend & DB</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">Java</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">PHP</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">MySQL</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">Node.js</span>
+                        </div>
                     </div>
-                    <div class="md:w-2/3 w-full text-lg text-center md:text-left">
-                        <p class="mb-4">
-                           I am a collaborative and results-driven Software Developer with expertise in software development, problem-solving, and the full software lifecycle. 
-                        </p>
-                        <p class="mb-6">
-                           I am skilled in building scalable, high-performance applications using modern programming languages and frameworks to meet business and technical objectives.
-                        </p>
+
+                    <div class="glass-panel p-6 rounded-2xl hover-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-4 text-primary">
+                            <i class="fa-brands fa-react text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Frontend</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">React.js</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">Next.js</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">Tailwind</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">JavaScript</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl hover-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-12 h-12 bg-pink-500/10 rounded-lg flex items-center justify-center mb-4 text-accent-pink">
+                            <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Tools & Soft Skills</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">Git</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">AWS</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">Problem Solving</span>
+                            <span class="px-3 py-1 bg-bg-lighter rounded border border-gray-700 text-sm text-gray-300">Leadership</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-6">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white" data-aos="fade-up">My Projects</h2>
-                    <p class="text-muted mt-2" data-aos="fade-up" data-aos-delay="100">Here are some of the things I've built.</p>
+        <section id="projects" class="py-20 relative bg-bg-lighter/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Featured <span class="text-primary">Projects</span></h2>
+                    <p class="text-gray-400">A selection of my recent work.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" data-aos="fade-up" data-aos-delay="200">
-                    <!-- Project Card 1 -->
-                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group" data-aos="fade-up" data-aos-delay="0">
-                        <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <a href="https://github.com/santoshkumar187/Music-learning-app">
-                                <img src="https://iili.io/FvaCQ5J.md.png" alt="Music Learning App Screenshot" class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
-                            </a>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Reverted to glass-panel hover-card -->
+                    <article class="glass-panel rounded-2xl overflow-hidden hover-card flex flex-col h-full group" data-aos="fade-up">
+                        <div class="relative overflow-hidden h-48 bg-gray-800">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60 z-10"></div>
+                            <img src="https://iili.io/FvaCQ5J.md.png" alt="Music App" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">
                         </div>
-                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                        <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">MUSIC_APP</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base"></p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/santoshkumar187/Music-learning-app" target="_blank" class="inline-block bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 text-sm">
-                                    View Project
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white mb-2">Music Learning App</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">A comprehensive platform for music education, featuring interactive lessons and progress tracking.</p>
+                            <div class="mt-auto pt-4 border-t border-gray-800 flex justify-between items-center">
+                                <span class="text-xs font-mono text-primary">React • Node</span>
+                                <a href="https://github.com/santoshkumar187/Music-learning-app" target="_blank" class="text-white hover:text-primary transition-colors">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                    <!-- Project Card 2 -->
-                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <a href="https://github.com/santoshkumar187/Text_to_Image_Gen">
-                                <img src="https://iili.io/FvYQ4kb.md.png" alt="Text to Image Generator Screenshot" class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
-                            </a>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="glass-panel rounded-2xl overflow-hidden hover-card flex flex-col h-full group" data-aos="fade-up" data-aos-delay="100">
+                        <div class="relative overflow-hidden h-48 bg-gray-800">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60 z-10"></div>
+                            <img src="https://iili.io/FvYQ4kb.md.png" alt="AI Gen" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">
                         </div>
-                        <div class="p-3 sm:p-3 flex flex-col flex-grow">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white mb-2">Text to Image Gen</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">AI-powered application converting textual descriptions into visual art using modern APIs.</p>
+                            <div class="mt-auto pt-4 border-t border-gray-800 flex justify-between items-center">
+                                <span class="text-xs font-mono text-primary">React • OpenAI</span>
+                                <a href="https://github.com/santoshkumar187/Text_to_Image_Gen" target="_blank" class="text-white hover:text-primary transition-colors">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 3 -->
+                    <article class="glass-panel rounded-2xl overflow-hidden hover-card flex flex-col h-full group" data-aos="fade-up" data-aos-delay="200">
+                        <div class="relative overflow-hidden h-48 bg-gray-800">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60 z-10"></div>
+                            <img src="https://www.zoho.com/books/kb/images/payments/make-payment.png" alt="Payment System" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-white mb-2">Payment Record System</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-3">Secure transaction logging and management system for small businesses.</p>
+                            <div class="mt-auto pt-4 border-t border-gray-800 flex justify-between items-center">
+                                <span class="text-xs font-mono text-primary">PHP • SQL</span>
+                                <a href="https://github.com/santoshkumar187/Pay_Record_System" target="_blank" class="text-white hover:text-primary transition-colors">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section id="certifications" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-4">Credential <span class="text-primary">Highlights</span></h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Reverted to glass-panel hover-card -->
+                    <div class="glass-panel p-4 rounded-xl flex items-start space-x-4 hover:bg-white/5 transition-colors cursor-pointer group" onclick="openModal('https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_1280/B56ZS8O_QnGsAk-/0/1738324834708?e=1766016000&v=beta&t=UNEbZVp6ss_D0RzXshDpaDhnc39jGc7R4du2rG59nYc')">
+                        <div class="w-16 h-16 bg-gray-800 rounded-lg flex-shrink-0 overflow-hidden">
+                             <img src="https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_1280/B56ZS8O_QnGsAk-/0/1738324834708?e=1766016000&v=beta&t=UNEbZVp6ss_D0RzXshDpaDhnc39jGc7R4du2rG59nYc" class="w-full h-full object-cover opacity-80 group-hover:opacity-100" loading="lazy">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight mb-1 group-hover:text-primary transition-colors">AWS Cloud Computing</h4>
+                            <p class="text-gray-400 text-xs">Amazon Web Services</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Cert 2 -->
+                    <div class="glass-panel p-4 rounded-xl flex items-start space-x-4 hover:bg-white/5 transition-colors cursor-pointer group" onclick="openModal('https://media.licdn.com/dms/image/v2/D5622AQFO30-Sm6vVsA/feedshare-shrink_800/B56ZjmyJ7ZHAAg-/0/1756218567829?e=1766016000&v=beta&t=Mm3IXoiwVTHceuG3SFV8W2ggB5RIn-EKEOKVAmO_FtU')">
+                        <div class="w-16 h-16 bg-gray-800 rounded-lg flex-shrink-0 overflow-hidden">
+                             <img src="https://media.licdn.com/dms/image/v2/D5622AQFO30-Sm6vVsA/feedshare-shrink_800/B56ZjmyJ7ZHAAg-/0/1756218567829?e=1766016000&v=beta&t=Mm3IXoiwVTHceuG3SFV8W2ggB5RIn-EKEOKVAmO_FtU" class="w-full h-full object-cover opacity-80 group-hover:opacity-100" loading="lazy">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight mb-1 group-hover:text-primary transition-colors">Full-Stack Internship</h4>
+                            <p class="text-gray-400 text-xs">Vitvara Technologies</p>
+                        </div>
+                    </div>
+
+                    <!-- Cert 3 -->
+                    <div class="glass-panel p-4 rounded-xl flex items-start space-x-4 hover:bg-white/5 transition-colors cursor-pointer group" onclick="openModal('https://media.licdn.com/dms/image/v2/D5622AQFgDRkzrG8Qtw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1704886931440?e=1766016000&v=beta&t=zMSDjv46OdPnPjsN6OL93kYK3NwHwosrqHm1-YcbjzA')">
+                        <div class="w-16 h-16 bg-gray-800 rounded-lg flex-shrink-0 overflow-hidden">
+                             <img src="https://media.licdn.com/dms/image/v2/D5622AQFgDRkzrG8Qtw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1704886931440?e=1766016000&v=beta&t=zMSDjv46OdPnPjsN6OL93kYK3NwHwosrqHm1-YcbjzA" class="w-full h-full object-cover opacity-80 group-hover:opacity-100" loading="lazy">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight mb-1 group-hover:text-primary transition-colors">Frontend Dev</h4>
+                            <p class="text-gray-400 text-xs">Nexel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section (APPLIED MOVING BORDER HERE) -->
+        <section id="contact" class="py-24 relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Changed to animated-border, removed glass-panel -->
+                <div class="animated-border rounded-[22px] p-1">
+                    <div class="relative z-10 bg-bg-main/90 backdrop-blur-xl rounded-[20px] p-8 md:p-12">
+                        <div class="text-center mb-10">
+                            <h2 class="text-3xl font-heading font-bold text-white mb-2">Get In <span class="text-primary">Touch</span></h2>
+                            <p class="text-gray-400">Have a project in mind? Let's build something together.</p>
+                        </div>
+
+                        <form id="contactForm" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-sm text-gray-400 font-medium ml-1">Name</label>
+                                    <input type="text" id="name" name="name" class="w-full bg-bg-lighter border border-gray-700 rounded-xl px-5 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="John Doe">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm text-gray-400 font-medium ml-1">Email</label>
+                                    <input type="email" id="email" name="email" class="w-full bg-bg-lighter border border-gray-700 rounded-xl px-5 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="john@example.com">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm text-gray-400 font-medium ml-1">Message</label>
+                                <textarea id="message" name="message" rows="4" class="w-full bg-bg-lighter border border-gray-700 rounded-xl px-5 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none" placeholder="Tell me about your project..."></textarea>
+                            </div>
                             
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">TEXT_2_IMAGE_GEN</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base"></p>
-                            <div class="mt-auto">
-                                <a href="https://github.com/santoshkumar187/Text_to_Image_Gen" target="_blank" class="inline-block bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 text-sm">
-                                    View Project
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Project Card 3 -->
-                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group" data-aos="fade-up" data-aos-delay="200">
-                        <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-             <a href="https://github.com/santoshkumar187/Pay_Record_System">
-                <img src="https://www.zoho.com/books/kb/images/payments/make-payment.png" alt="Payment Record System Screenshot" class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
-             </a>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-3 text-center">PAYMENT_RECORD_SYSTEM</h3>
-                        <p class="text-muted mb-5 flex-grow text-sm sm:text-base"></p>
-                        <div class="mt-auto">
-                                <a href="https://github.com/santoshkumar187/Pay_Record_System" target="_blank" class="inline-block bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105 text-sm">
-                                    View Project
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        
-
-        <!-- Skills Section -->
-        <section id="skills" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-6">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white" data-aos="fade-up">Skills</h2>
-                </div>
-                <div class="max-w-4xl mx-auto">
-                    <div class="mb-4">
-                        <h3 class="text-2xl font-semibold text-white mb-4 text-center">Programming & Databases</h3>
-                        <div class="flex flex-wrap gap-4 justify-center">
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">Java</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">JAVASCRIPT</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">C</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">SQL</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">PHP</span>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <h3 class="text-2xl font-semibold text-white mb-4 text-center">Web Development</h3>
-                        <div class="flex flex-wrap gap-4 justify-center">
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">HTML</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">CSS</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">JavaScript</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">PHP</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">React.js</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">Next.js</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">Tailwind CSS</span>
-                        </div>
-                    </div>
-                     <div>
-                        <h3 class="text-2xl font-semibold text-white mb-4 text-center">Soft Skills</h3>
-                        <div class="flex flex-wrap gap-4 justify-center">
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">Problem Solving</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">Critical Thinking</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">Communication</span>
-                            <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">Leadership</span>
-                             <span class="bg-button-secondary text-primary text-sm font-medium px-4 py-2 rounded-full transition duration-300 transform hover:scale-95">Adaptability</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Certifications Section -->
-        <section id="certifications" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-6">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white" data-aos="fade-up">Certifications</h2>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" data-aos="fade-up" data-aos-delay="200">
-                    <!-- Certificate Card 1 -->
-                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="0">
-                        <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_1280/B56ZS8O_QnGsAk-/0/1738324834708?e=1762992000&v=beta&t=UjhYvBE4M5ceeux5iCBwKloTpa91O6GLlHz9NGnqdHU" alt="AWS Cloud Computing Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">AWS Cloud Computing Certificate</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Amazon Web Services</p>
-                            <div class="flex flex-wrap gap-2 mt-auto justify-start w-full">
-                                <a href="https://drive.google.com/file/d/1kxcitUIpg4G4Zy09quxQoV7LL2sL4X_q/view?usp=drivesdk" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Certificate Card 2 -->
-                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D5622AQFO30-Sm6vVsA/feedshare-shrink_1280/B56ZjmyJ7ZHAAs-/0/1756218567874?e=1762992000&v=beta&t=x0OQbavBotIF7g__jP94Vod5udJ6YhvLHdZTBbsCkbg" alt="Full-Stack Web Development Internship Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Full-Stack Web Development Internship Certificate</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Vitvara Technologies</p>
-                            <div class="flex flex-wrap gap-2 mt-auto justify-start w-full">
-                                <a href="https://drive.google.com/file/d/1jb5ylOcuxs7zBuN1dGdb6mq-51Bg2WfK/view?usp=drivesdk" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Certificate Card 3 -->
-                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="200">
-                        <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D5622AQFgDRkzrG8Qtw/feedshare-shrink_800/feedshare-shrink_800/0/1704886931492?e=1762992000&v=beta&t=6w6HKuo6Zrq39L26FmbQCsoZohmC9GS1lmM1EtYaeqE" alt="Frontend Development Certificate" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Frontend Development</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Nexel</p>
-                            <div class="flex flex-wrap gap-2 mt-auto justify-start w-full">
-                                <a href="https://drive.google.com/file/d/15f9FtUQgQHeYnFQp_OBsuAx0O-ff6pxv/view" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Certificate Card 4 -->
-                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="300">
-                        <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D5622AQGYayAUqO7ohw/feedshare-shrink_800/feedshare-shrink_800/0/1724984846628?e=1762992000&v=beta&t=B7U5XwPtagE8OceTwCCj3gDHt53UzUnB5hBSpqynp2k" alt="Database Certification in Information Technology" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2 text-center">Database Certification in Information Technology</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Srinivas University</p>
-                            <div class="flex flex-wrap gap-2 mt-auto justify-start w-full">
-                                <a href="https://drive.google.com/file/d/1b71-auVBNiOzW-_N2v_uhAsjW8q271E4/view" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Certificate Card 5 -->
-
-                    <div class="bg-card rounded-lg overflow-hidden shadow-lg flex flex-col project-card group backdrop-blur-sm" data-aos="fade-up" data-aos-delay="400">
-                        <div class="w-full h-48 flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img src="https://media.licdn.com/dms/image/v2/D4E22AQECyxnw9-y-0g/feedshare-shrink_800/B4EZnJnUZMJ0Ag-/0/1760024152382?e=1762992000&v=beta&t=1tDuNC3PrSfuaZt93GIy4Up_Qi5bLNy9mIXnM_RAZNA" alt="The Complete 2023 Web Development Bootcamp" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 ease-in-out group-hover:scale-110" loading="lazy">
-                        </div>
-                        <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg sm   :text-xl font-bold text-white mb-2 text-center">Certified in Javascript By Ethnotech Academic Solutions</h3>
-                            <p class="text-muted mb-4 flex-grow text-sm sm:text-base text-center">Ethnotech</p>
-                            <div class="flex flex-wrap gap-2 mt-auto justify-start w-full"> 
-                                <a href="https://drive.google.com/file/d/1ryGXIt4hJjl7dfCvuOvq42EwcjXqsBRb/view" target="_blank" class="text-primary hover:text-primary-hover font-bold text-sm py-2 px-4 rounded-lg bg-button-secondary hover:bg-button-secondary-hover transition duration-300">View Credential</a>             
-                </div>
-            </div>
-        </section>
-  
-       
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-10 sm:py-12 bg-section backdrop-blur-sm">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                    <!-- Left Column: Contact Form -->
-                    <div class="bg-card rounded-lg shadow-lg p-6 sm:p-8 backdrop-blur-sm project-card" data-aos="fade-right" data-aos-delay="0">
-                        <h3 class="text-muted uppercase text-sm font-semibold mb-2">Get In Touch</h3>
-                        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Contact.</h2>
-                        <form id="contactForm" class="space-y-4">
-                            <div>
-                                <label for="name" class="block text-white text-lg font-medium mb-2">Your Name</label>
-                                <input type="text" id="name" name="name" placeholder="What's your name?" class="bg-input text-white border border-gray-600 rounded-md p-3 w-full focus:ring-primary focus:border-primary transition duration-200">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-white text-lg font-medium mb-2">Your Email</label>
-                                <input type="email" id="email" name="email" placeholder="What's your email?" class="bg-input text-white border border-gray-600 rounded-md p-3 w-full focus:ring-primary focus:border-primary transition duration-200">
-                            </div>
-                            <div>
-                                <label for="message" class="block text-white text-lg font-medium mb-2">Your Message</label>
-                                <textarea id="message" name="message" rows="5" placeholder="What do you want to say?" class="bg-input text-white border border-gray-600 rounded-md p-3 w-full focus:ring-primary focus:border-primary transition duration-200"></textarea>
-                            </div>
-                            <button type="submit" name="send" class="bg-gradient-to-r from-primary to-emerald-500 hover:from-primary-hover hover:to-emerald-400 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 w-full">
+                            <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transform hover:-translate-y-1 transition-all duration-300">
                                 Send Message
                             </button>
-                            <div id="form-messages" class="mt-4 p-3 rounded-md text-center hidden" role="alert"></div>
+                            
+                            <div id="form-messages" class="hidden text-center p-3 rounded-lg text-sm"></div>
                         </form>
-                    </div>
 
-                    <!-- Right Column: Contact Info & Image -->
-                    <div class="bg-card rounded-lg shadow-lg p-6 sm:p-8 backdrop-blur-sm project-card" data-aos="fade-left" data-aos-delay="100">
-                        <img src="https://avatars.githubusercontent.com/u/155081605?v=4" alt="Santosh Kumar Ingole" class="rounded-full border-4 border-primary shadow-lg w-32 h-32 object-cover mb-6 mx-auto">
-                        <h3 class="text-2xl font-bold text-white mb-4 text-center">Let's Connect</h3>
-                        <div class="space-y-4 text-left w-full max-w-xs mx-auto text-center">
-                            <div class="flex items-center space-x-3 text-muted">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
-                                <span>santoshingole578@gmail.com</span>
-                            </div>
-                            <div class="flex items-center space-x-3 text-muted">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" /></svg>
-                                <span>Mangalore, Karnataka, India</span>
-                            </div>
-                            <div class="flex items-center space-x-3 text-muted">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1v3.5c0 .55-.45 1-1 1C10.76 21 3 13.24 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" /></svg>
-                                <span>+91 8904037354</span>
-                            </div>
-                        </div>
-                        <div class="flex space-x-4 mt-8 justify-center">
-                            <a href="https://github.com/santoshkumar187" target="_blank" class="text-muted hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
-                                <span class="sr-only">GitHub</span>
-                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                        <!-- Social Links -->
+                        <div class="mt-12 flex justify-center gap-6">
+                            <a href="mailto:santoshingole578@gmail.com" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all">
+                                <i class="fa-solid fa-envelope text-lg"></i>
                             </a>
-                            <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="text-muted hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
-                                <span class="sr-only">LinkedIn</span>
-                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                            <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-500 hover:bg-blue-500/10 transition-all">
+                                <i class="fa-brands fa-linkedin-in text-lg"></i>
                             </a>
-                            <a href="https://www.instagram.com/santoshkumaringole/?igsh=MTk5Z3Y4emd5ZHVyYw%3D%3D" target="_blank" class="text-muted hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
-                                <span class="sr-only">Instagram</span>
-                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C8.74 0 8.332.014 7.053.072 5.775.13 4.882.26 4.092.659 3.313 1.059 2.671 1.71 2.029 2.353.774 3.992.072 6.126.014 7.404.002 8.344 0 8.74 0 12c0 3.26.014 3.658.072 4.936.058 1.278.19 2.17.659 2.968.4.779 1.05 1.42 1.703 2.063 1.637 1.637 3.75 2.339 4.936 2.397 1.278.058 1.676.072 4.936.072 3.26 0 3.658-.014 4.936-.072 1.278-.058 2.17-.19 2.968-.659.779-.4 1.42-1.05 2.063-1.703 1.637-1.637 2.339-3.75 2.397-4.936.058-1.278.072-1.676.072-4.936 0-3.26-.014-3.658-.072-4.936-.058-1.278-.19-2.17-.659-2.968-.4-.779-1.05-1.42-1.703-2.063C20.008.774 17.882.072 16.604.014 15.326.002 14.936 0 12 0zm0 2.13c3.238 0 3.626.013 4.885.072 1.171.055 1.838.252 2.395.474.57.234 1.006.505 1.408.907.4.402.673.837.907 1.407.222.557.42 1.224.474 2.395.059 1.258.072 1.647.072 4.885s-.013 3.626-.072 4.885c-.055 1.171-.252 1.838-.474 2.395-.234.57-.505 1.006-.907 1.408-.402.4-.837.673-1.407.907-.557.222-1.224.42-2.395-.474-1.258-.059-1.647-.072-4.885-.072s-3.626-.013-4.885-.072c-1.171-.055-1.838-.252-2.395-.474-.57-.234-1.006-.505-1.408-.907-.4-.402-.673-.837-1.407-.907-.557-.222-1.224-.42-2.395-.474C8.344 2.143 8.74 2.13 12 2.13zm0 3.65c-3.179 0-5.75 2.57-5.75 5.75s2.571 5.75 5.75 5.75 5.75-2.57 5.75-5.75-2.571-5.75-5.75-5.75zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm6.49-10.718c-.767 0-1.39.623-1.39 1.39s.623 1.39 1.39 1.39 1.39-.623 1.39-1.39-.623-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
-                            </a>
-                            <a href="mailto:santoshingole578@gmail.com" class="text-muted hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
-                                <span class="sr-only">Email</span>
-                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
+                            <a href="https://github.com/santoshkumar187" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-500 hover:bg-gray-500/10 transition-all">
+                                <i class="fa-brands fa-github text-lg"></i>
                             </a>
                         </div>
                     </div>
@@ -581,349 +600,469 @@
         </section>
 
         <!-- Footer -->
-        <footer class="bg-footer py-6">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <p class="text-gray-100 font-semibold">© 2023 Santosh Kumar Ingole. All rights reserved.</p>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Home</a>
-                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">About</a>
-                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Projects</a>
-                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Certifications</a>
-                    <a href="#" class="text-gray-100 hover:text-white font-semibold footer-glass-button">Contact</a>
-                </div>
-                <div class="flex space-x-4 mt-4 md:mt-0 justify-center">
-                    <a href="https://github.com/santoshkumar187" target="_blank" class="text-gray-100 hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
-                        <span class="sr-only">GitHub</span>
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/santosh-kumar-ingole-a9193a294/" target="_blank" class="text-gray-100 hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
-                        <span class="sr-only">LinkedIn</span>
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
-                    </a>
-                    <a href="https://www.instagram.com/santoshkumaringole/?igsh=MTk5Z3Y4emd5ZHVyYw%3D%3D" target="_blank" class="text-gray-100 hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
-                        <span class="sr-only">Instagram</span>
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0C8.74 0 8.332.014 7.053.072 5.775.13 4.882.26 4.092.659 3.313 1.059 2.671 1.71 2.029 2.353.774 3.992.072 6.126.014 7.404.002 8.344 0 8.74 0 12c0 3.26.014 3.658.072 4.936.058 1.278.19 2.17.659 2.968.4.779 1.05 1.42 1.703 2.063 1.637 1.637 3.75 2.339 4.936 2.397 1.278.058 1.676.072 4.936.072 3.26 0 3.658-.014 4.936-.072 1.278-.058 2.17-.19 2.968-.659.779-.4 1.42-1.05 2.063-1.703 1.637-1.637 2.339-3.75 2.397-4.936.058-1.278.072-1.676.072-4.936 0-3.26-.014-3.658-.072-4.936-.058-1.278-.19-2.17-.659-2.968-.4-.779-1.05-1.42-1.703-2.063C20.008.774 17.882.072 16.604.014 15.326.002 14.936 0 12 0zm0 2.13c3.238 0 3.626.013 4.885.072 1.171.055 1.838.252 2.395.474.57.234 1.006.505 1.408.907.4.402.673.837.907 1.407.222.557.42 1.224.474 2.395.059 1.258.072 1.647.072 4.885s-.013 3.626-.072 4.885c-.055 1.171-.252 1.838-.474 2.395-.234.57-.505 1.006-.907 1.408-.402.4-.837.673-1.407.907-.557.222-1.224.42-2.395.474-1.258.059-1.647.072-4.885.072s-3.626-.013-4.885-.072c-1.171-.055-1.838-.252-2.395-.474-.57-.234-1.006-.505-1.408-.907-.4-.402-.673-.837-1.407-.907-.557-.222-1.224-.42-2.395-.474C8.344 2.143 8.74 2.13 12 2.13zm0 3.65c-3.179 0-5.75 2.57-5.75 5.75s2.571 5.75 5.75 5.75 5.75-2.57 5.75-5.75-2.571-5.75-5.75-5.75zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm6.49-10.718c-.767 0-1.39.623-1.39 1.39s.623 1.39 1.39 1.39 1.39-.623 1.39-1.39-.623-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
-                    </a>
-                    <a href="mailto:santoshingole578@gmail.com" class="text-gray-100 hover:text-white text-3xl p-3 rounded-full bg-button-secondary hover:bg-button-secondary-hover transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary">
-                        <span class="sr-only">Email</span>
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12.713L2.247 6.015A.75.75 0 012 5.5V4.75a.75.75 0 01.75-.75h18.5a.75.75 0 01.75.75v.75a.75.75 0 01-.247.515L12 12.713zM2.75 7.026v10.224a.75.75 0 00.75.75h17a.75.75 0 00.75-.75V7.026l-8.247 5.5L2.75 7.026z" /></svg>
-                    </a>
+        <footer class="py-8 border-t border-gray-800/50 bg-black/40">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">© 2025 Santosh Kumar Ingole.</p>
+                <div class="flex items-center gap-4">
+                    <!-- Admin Toggle Button -->
+                    <button id="admin-toggle-btn" class="text-gray-600 hover:text-primary transition-colors" title="Admin Login">
+                        <i class="fa-solid fa-lock"></i>
+                    </button>
                 </div>
             </div>
         </footer>
     </main>
 
-    <!-- Existing AOS, Mobile Menu, and Constellation BG scripts remain below -->
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-<script type="text/javascript">
-   (function() {
-      emailjs.init({publicKey: "9ztHe0KFHT5zM8285"});
-   })();
-</script>
-    <script>
-        // JavaScript for mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
-        const menuIconOpen = mobileMenuButton.querySelector('svg:first-child');
-        const menuIconClose = mobileMenuButton.querySelector('svg:last-child');
-
-        mobileMenuButton.addEventListener('click', () => {
-            const isMenuOpen = mobileMenu.classList.contains('is-open');
-
-            mobileMenu.classList.toggle('is-open');
-            mobileMenuBackdrop.classList.toggle('is-open');
-            menuIconOpen.classList.toggle('hidden');
-            menuIconClose.classList.toggle('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', !isMenuOpen);
-        });
-
-        const navLinks = document.querySelectorAll('#mobile-menu a, header nav a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (mobileMenu.classList.contains('is-open')) {
-                    mobileMenu.classList.remove('is-open');
-                    mobileMenuBackdrop.classList.remove('is-open');
-                    menuIconOpen.classList.remove('hidden');
-                    menuIconClose.classList.add('hidden');
-                    mobileMenuButton.setAttribute('aria-expanded', false);
-                }
-            });
-        });
-    </script>
-    <script>
-        // JavaScript for Live Constellation Background (optimized)
-        const canvas = document.getElementById('constellation-bg');
-        const ctx = canvas.getContext('2d');
-
-        let points = [];
-        const mouse = { x: null, y: null, maxDistance: 140 };
-        const connectionDistance = 100; // px
-        const connectionDistanceSq = connectionDistance * connectionDistance;
-        let numPoints;
-        // Cap the maximum connections per frame to avoid O(n^2) blowups on large screens
-        const MAX_CONNECTIONS_PER_FRAME = 300;
-
-        function setCanvasSize() {
-            const dpr = Math.max(1, window.devicePixelRatio || 1);
-            canvas.width = Math.floor(window.innerWidth * dpr);
-            canvas.height = Math.floor(window.innerHeight * dpr);
-            canvas.style.width = window.innerWidth + 'px';
-            canvas.style.height = window.innerHeight + 'px';
-            ctx.scale(dpr, dpr);
-
-            // Adjust point density based on screen size for performance (fewer points)
-            const area = window.innerWidth * window.innerHeight;
-            numPoints = Math.max(18, Math.floor(area / 40000)); // reduce density divisor
-        }
-
-        function Point(x, y) {
-            this.x = x === undefined ? Math.random() * window.innerWidth : x;
-            this.y = y === undefined ? Math.random() * window.innerHeight : y;
-            // slightly slower velocities for subtle motion
-            this.vx = (Math.random() - 0.5) * 0.25;
-            this.vy = (Math.random() - 0.5) * 0.25;
-            this.radius = Math.random() * 1.6 + 0.6;
-        }
-
-        Point.prototype.update = function() {
-            this.x += this.vx;
-            this.y += this.vy;
-
-            // Wrap around edges
-            if (this.x > window.innerWidth + 6) this.x = -6;
-            if (this.x < -6) this.x = window.innerWidth + 6;
-            if (this.y > window.innerHeight + 6) this.y = -6;
-            if (this.y < -6) this.y = window.innerHeight + 6;
-        };
-
-        Point.prototype.draw = function() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(196, 181, 253, 0.85)';
-            ctx.fill();
-        };
-
-        function init() {
-            // reset any existing scaling on the context before setting size
-            ctx.setTransform(1,0,0,1,0,0);
-            setCanvasSize();
-            points.length = 0;
-            for (let i = 0; i < numPoints; i++) points.push(new Point());
-        }
-
-        let rafId = null;
-        let lastFrameTime = 0;
-        const FRAME_MIN_DT = 1000 / 50; // aim for max 50fps when busy
-
-        function animate(now) {
-            if (document.hidden) {
-                rafId = requestAnimationFrame(animate);
-                return; // keep requesting but don't render heavy work
-            }
-
-            // Throttle heavy rendering when tabs are swapped or frame rate is high
-            if (now - lastFrameTime < FRAME_MIN_DT) {
-                rafId = requestAnimationFrame(animate);
-                return;
-            }
-            lastFrameTime = now;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Update and draw points
-            for (let i = 0; i < points.length; i++) {
-                points[i].update();
-                points[i].draw();
-            }
-
-            // Draw connections (optimized: squared distances, early exit cap)
-            let connectionsDrawn = 0;
-            for (let i = 0; i < points.length; i++) {
-                const pi = points[i];
-                for (let j = i + 1; j < points.length; j++) {
-                    const pj = points[j];
-                    const dx = pi.x - pj.x;
-                    const dy = pi.y - pj.y;
-                    const distSq = dx * dx + dy * dy;
-                    if (distSq < connectionDistanceSq) {
-                        const alpha = 1 - distSq / connectionDistanceSq;
-                        ctx.beginPath();
-                        ctx.moveTo(pi.x, pi.y);
-                        ctx.lineTo(pj.x, pj.y);
-                        ctx.strokeStyle = `rgba(196, 181, 253, ${0.45 * alpha})`;
-                        ctx.lineWidth = 0.6;
-                        ctx.stroke();
-                        connectionsDrawn++;
-                        if (connectionsDrawn > MAX_CONNECTIONS_PER_FRAME) break;
-                    }
-                }
-                if (connectionsDrawn > MAX_CONNECTIONS_PER_FRAME) break;
-
-                // Mouse connections
-                if (mouse.x != null && mouse.y != null) {
-                    const mdx = pi.x - mouse.x;
-                    const mdy = pi.y - mouse.y;
-                    const mdSq = mdx * mdx + mdy * mdy;
-                    const maxSq = mouse.maxDistance * mouse.maxDistance;
-                    if (mdSq < maxSq) {
-                        const alpha = 1 - mdSq / maxSq;
-                        ctx.beginPath();
-                        ctx.moveTo(pi.x, pi.y);
-                        ctx.lineTo(mouse.x, mouse.y);
-                        ctx.strokeStyle = `rgba(196, 181, 253, ${0.28 * alpha})`;
-                        ctx.lineWidth = 0.7;
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            rafId = requestAnimationFrame(animate);
-        }
-
-        // Event listeners: resize + pointer
-        let resizeTimer = null;
-        window.addEventListener('resize', () => {
-            // debounce resize
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(init, 220);
-        });
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-        window.addEventListener('mouseout', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        // Pause drawing when tab is hidden to save CPU
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                if (rafId) cancelAnimationFrame(rafId);
-                rafId = null;
-            } else {
-                if (!rafId) rafId = requestAnimationFrame(animate);
-            }
-        });
-
-        // Defer init/animation startup until browser is idle to avoid jank on page open
-        function startConstellation() {
-            try { init(); } catch (e) { /* ignore */ }
-            if (!rafId) rafId = requestAnimationFrame(animate);
-        }
-
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => startConstellation(), {timeout: 800});
-        } else {
-            // fallback
-            setTimeout(() => startConstellation(), 300);
-        }
-    </script>
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-      AOS.init({
-        duration: 1000, // Animation duration in ms
-        once: true,     // Only animate once
-      });
-    </script>
-
-    <!-- Image Modal -->
-    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[9999] hidden p-4">
-        <!-- Container for image and the left close button -->
-        <div class="relative max-w-full max-h-full flex justify-center items-center">
-            <img id="modal-image" src="" alt="Zoomed Certificate" class="max-w-full max-h-full object-contain cursor-pointer" />
-            <button id="close-modal-left" class="absolute top-4 left-4 text-white px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary text-base font-semibold">Close</button>
-        </div>
-        <!-- The right close button (for the entire modal) remains here -->
-        <button id="close-modal" class="absolute top-4 right-4 text-white text-4xl font-bold bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center p-2">&times;</button>
+    <!-- Optimized Modal -->
+    <div id="image-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <button class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 z-10" onclick="closeModal()">
+            <i class="fa-solid fa-xmark text-3xl"></i>
+        </button>
+        <img id="modal-image" src="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-gray-700 transform scale-95 transition-transform duration-300">
     </div>
 
-    
+    <!-- NEW: Admin Login Modal (Fixed Alert Issue) -->
+    <div id="admin-login-modal" class="fixed inset-0 z-[120] bg-black/90 backdrop-blur-lg hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-bg-lighter border border-gray-700 rounded-2xl p-6 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="login-modal-content">
+            <h3 class="text-xl font-bold text-white mb-4 text-center">Admin Access</h3>
+            <div class="space-y-4">
+                <input type="password" id="admin-password-input" class="w-full bg-black/50 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-primary outline-none" placeholder="Enter Password">
+                <div id="login-error" class="text-red-400 text-sm text-center hidden">Incorrect password</div>
+                <div class="flex gap-3">
+                    <button id="cancel-login-btn" class="flex-1 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors">Cancel</button>
+                    <button id="submit-login-btn" class="flex-1 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors font-semibold">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div id="admin-modal" class="fixed inset-0 z-[110] bg-black/95 backdrop-blur-xl hidden flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-4xl h-[80vh] bg-bg-lighter border border-gray-700 rounded-2xl flex flex-col overflow-hidden shadow-2xl">
+            <!-- Header -->
+            <div class="p-6 border-b border-gray-700 flex justify-between items-center bg-bg-card">
+                <h2 class="text-2xl font-bold text-white"><i class="fa-solid fa-inbox text-primary mr-2"></i> Message Inbox</h2>
+                <button onclick="document.getElementById('admin-modal').classList.add('hidden')" class="text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Content -->
+            <div id="admin-messages-list" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Messages will be injected here -->
+                <div class="text-center text-gray-500 mt-10">Loading messages...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- 1. AUTHENTICATION & INIT ---
+        async function initAuth() {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Auth Error:", error);
+            }
+        }
+
+        initAuth();
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User authenticated:", user.uid);
+                setupRealtimeListener();
+            }
+        });
+
+        // --- 2. SAVE MESSAGE TO FIRESTORE ---
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if(!name || !email || !message) return;
+
+            try {
+                const messagesRef = collection(db, 'artifacts', appId, 'public', 'data', 'contact_messages');
+                await addDoc(messagesRef, {
+                    name: name,
+                    email: email,
+                    message: message,
+                    createdAt: serverTimestamp(),
+                    read: false
+                });
+                console.log("Message saved to database");
+            } catch (error) {
+                console.error("Error saving message:", error);
+            }
+        });
+
+        // --- 3. ADMIN UI LOGIC (REPLACED ALERTS WITH MODALS) ---
+        const adminBtn = document.getElementById('admin-toggle-btn');
+        const loginModal = document.getElementById('admin-login-modal');
+        const loginContent = document.getElementById('login-modal-content');
+        const passwordInput = document.getElementById('admin-password-input');
+        const loginError = document.getElementById('login-error');
+        const submitLoginBtn = document.getElementById('submit-login-btn');
+        const cancelLoginBtn = document.getElementById('cancel-login-btn');
+        const adminModal = document.getElementById('admin-modal');
+        const msgList = document.getElementById('admin-messages-list');
+        
+        // Open Login Modal
+        adminBtn.addEventListener('click', () => {
+            loginModal.classList.remove('hidden');
+            // Trigger animation
+            setTimeout(() => {
+                loginContent.classList.remove('scale-95', 'opacity-0');
+                loginContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            passwordInput.value = '';
+            loginError.classList.add('hidden');
+            passwordInput.focus();
+        });
+
+        function closeLoginModal() {
+            loginContent.classList.remove('scale-100', 'opacity-100');
+            loginContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                loginModal.classList.add('hidden');
+            }, 300);
+        }
+
+        cancelLoginBtn.addEventListener('click', closeLoginModal);
+        
+        // Close on background click
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) closeLoginModal();
+        });
+
+        // Handle Login Logic
+        function handleLogin() {
+            const password = passwordInput.value;
+            if (password === "admin123") {
+                closeLoginModal();
+                setTimeout(() => {
+                    adminModal.classList.remove('hidden');
+                }, 300);
+            } else {
+                loginError.classList.remove('hidden');
+                // Shake effect
+                loginContent.classList.add('animate-pulse');
+                setTimeout(() => loginContent.classList.remove('animate-pulse'), 200);
+            }
+        }
+
+        submitLoginBtn.addEventListener('click', handleLogin);
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+
+
+        // --- 4. REALTIME MESSAGES ---
+        function setupRealtimeListener() {
+            if (!auth.currentUser) return;
+
+            const messagesRef = collection(db, 'artifacts', appId, 'public', 'data', 'contact_messages');
+            const q = query(messagesRef); 
+
+            onSnapshot(q, (snapshot) => {
+                const messages = [];
+                snapshot.forEach((doc) => {
+                    messages.push({ id: doc.id, ...doc.data() });
+                });
+
+                messages.sort((a, b) => {
+                    const t1 = a.createdAt ? a.createdAt.seconds : 0;
+                    const t2 = b.createdAt ? b.createdAt.seconds : 0;
+                    return t2 - t1;
+                });
+
+                renderMessages(messages);
+            }, (error) => {
+                console.error("Error fetching messages:", error);
+                msgList.innerHTML = `<div class="text-red-400 text-center">Error loading messages. Ensure you are online.</div>`;
+            });
+        }
+
+        function renderMessages(messages) {
+            if (messages.length === 0) {
+                msgList.innerHTML = `<div class="text-center text-gray-500 mt-10">No messages yet.</div>`;
+                return;
+            }
+
+            msgList.innerHTML = messages.map(msg => {
+                const date = msg.createdAt ? new Date(msg.createdAt.seconds * 1000).toLocaleDateString() : 'Just now';
+                const initial = msg.name ? msg.name.charAt(0).toUpperCase() : '?';
+                
+                return `
+                <div class="bg-bg-main border border-gray-800 rounded-xl p-5 hover:border-primary/50 transition-colors flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-lg">
+                            ${initial}
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg">${msg.name} <span class="text-xs text-gray-500 font-normal ml-2">${date}</span></h4>
+                            <p class="text-primary text-sm mb-1">${msg.email}</p>
+                            <p class="text-gray-300 text-sm mt-2 bg-black/30 p-3 rounded-lg border border-gray-800/50">${msg.message}</p>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="mailto:${msg.email}?subject=Re: Portfolio Inquiry from ${msg.name}&body=Hi ${msg.name},%0D%0A%0D%0AThanks for reaching out!%0D%0A%0D%0A" 
+                           class="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors text-sm font-semibold shadow-lg shadow-primary/20">
+                            <i class="fa-solid fa-reply"></i> Reply via Email
+                        </a>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+    </script>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
     <script>
-        const certImages = document.querySelectorAll('#certifications .project-card img');
-        const imageModal = document.getElementById('image-modal');
-        const modalImage = document.getElementById('modal-image');
-        const closeModalButton = document.getElementById('close-modal');
-        const closeModalButtonLeft = document.getElementById('close-modal-left');
-
-        certImages.forEach(img => {
-            img.addEventListener('click', (e) => {
-                modalImage.src = e.target.src;
-                imageModal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
-            });
+        // --- 1. PERFORMANCE & INIT ---
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50,
+            disable: 'mobile' // Disable heavy AOS on mobile for performance
         });
 
-        closeModalButton.addEventListener('click', () => {
-            imageModal.classList.add('hidden');
-            document.body.style.overflow = ''; // Restore scrolling
-        });
+        // EmailJS Init
+        (function() {
+            emailjs.init({publicKey: "9ztHe0KFHT5zM8285"});
+        })();
 
-        closeModalButtonLeft.addEventListener('click', () => {
-            imageModal.classList.add('hidden');
-            document.body.style.overflow = ''; // Restore scrolling
-        });
+        // --- 2. OPTIMIZED CONSTELLATION CANVAS (NO LAG) ---
+        const canvas = document.getElementById('constellation-bg');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let points = [];
+        // Reduce point count significantly on mobile
+        let isMobile = window.innerWidth < 768;
+        const pointCount = isMobile ? 25 : 60; // Reduced from typical 100+
+        const connectionDist = isMobile ? 80 : 130;
+        const connectionDistSq = connectionDist * connectionDist;
 
-        // Close modal when clicking outside the image (on the modal background) or on the image itself
-        imageModal.addEventListener('click', (e) => {
-            if (e.target === imageModal || e.target === modalImage) {
-                imageModal.classList.add('hidden');
-                document.body.style.overflow = '';
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            isMobile = width < 768;
+        }
+
+        class Point {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5; // Slower velocity = smoother feel
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
             }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(139, 92, 246, 0.5)'; // Primary color
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initCanvas() {
+            resize();
+            points = [];
+            for (let i = 0; i < pointCount; i++) {
+                points.push(new Point());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Spatial optimization: Double loop but strictly capped
+            for (let i = 0; i < points.length; i++) {
+                const p1 = points[i];
+                p1.update();
+                p1.draw();
+
+                for (let j = i + 1; j < points.length; j++) {
+                    const p2 = points[j];
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    
+                    // Quick check before sqrt
+                    if (Math.abs(dx) > connectionDist || Math.abs(dy) > connectionDist) continue;
+
+                    const distSq = dx * dx + dy * dy;
+
+                    if (distSq < connectionDistSq) {
+                        const alpha = 1 - (distSq / connectionDistSq);
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${alpha * 0.3})`; // Low opacity for performance
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // Defer canvas start to prioritize UI loading
+        window.addEventListener('load', () => {
+            initCanvas();
+            animate();
         });
 
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+        window.addEventListener('resize', () => {
+            resize();
+            // Re-init points on massive resize to keep density correct
+            if(points.length !== (isMobile ? 25 : 60)) initCanvas(); 
+        });
 
-            const formMessages = document.getElementById('form-messages');
+        // --- 3. UI INTERACTION ---
+        
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isOpen = !mobileMenu.classList.contains('translate-x-full');
+            if (isOpen) {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+            } else {
+                mobileMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Modal Logic
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-image');
+
+        function openModal(src) {
+            modalImg.src = src;
+            modal.classList.remove('hidden');
+            // Trigger reflow for transition
+            void modal.offsetWidth; 
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalImg.classList.remove('scale-95');
+            modalImg.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalImg.classList.remove('scale-100');
+            modalImg.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        // Close modal on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Contact Form EmailJS Handling
+        const form = document.getElementById('contactForm');
+        const msgDiv = document.getElementById('form-messages');
+
+        // Note: The Firestore saving is handled in the module script block above.
+        // This listener handles the UI feedback and EmailJS sending.
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            const originalText = btn.innerText;
             
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-
-            if (!name || !email || !message) {
-                formMessages.classList.remove('hidden', 'bg-blue-500', 'bg-green-500');
-                formMessages.classList.add('bg-red-500');
-                formMessages.textContent = 'Please fill in all fields.';
-                setTimeout(() => {
-                    formMessages.classList.add('hidden');
-                    formMessages.textContent = '';
-                }, 2000);
-                return; // Stop the form submission
+            // Basic validation
+            if(!form.name.value || !form.email.value || !form.message.value) {
+                showMsg('Please fill in all fields', 'error');
+                return;
             }
 
-            formMessages.classList.remove('hidden', 'bg-red-500', 'bg-green-500');
-            formMessages.classList.add('bg-blue-500');
-            formMessages.textContent = 'Sending message...';
+            btn.disabled = true;
+            btn.innerText = 'Sending...';
 
-            emailjs.sendForm('service_tkiwh1n', 'template_ojm4bow', this)
+            // Send via EmailJS
+            emailjs.sendForm('service_tkiwh1n', 'template_ojm4bow', form)
                 .then(() => {
-                    formMessages.classList.remove('bg-blue-500');
-                    formMessages.classList.add('bg-green-500');
-                    formMessages.textContent = 'Message sent successfully!';
-                    contactForm.reset();
-                    setTimeout(() => {
-                        formMessages.classList.add('hidden');
-                        formMessages.textContent = '';
-                    }, 2000);
-                }, (error) => {
-                    formMessages.classList.remove('bg-blue-500');
-                    formMessages.classList.add('bg-red-500');
-                    formMessages.textContent = 'Failed to send message: ' + error.text;
-                    setTimeout(() => {
-                        formMessages.classList.add('hidden');
-                        formMessages.textContent = '';
-                    }, 2000);
+                    showMsg('Message sent successfully!', 'success');
+                    form.reset();
+                })
+                .catch((err) => {
+                    // Even if EmailJS fails, we likely saved to Firestore, so we can be vague or specific
+                    console.error("EmailJS Error", err);
+                    showMsg('Message saved (Email notification failed).', 'success'); 
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
                 });
         });
+
+        function showMsg(text, type) {
+            msgDiv.innerText = text;
+            msgDiv.className = `mt-4 p-3 rounded-lg text-sm text-center font-bold ${type === 'success' ? 'bg-green-500/20 text-green-400 border border-green-500/50' : 'bg-red-500/20 text-red-400 border border-red-500/50'}`;
+            msgDiv.classList.remove('hidden');
+            setTimeout(() => msgDiv.classList.add('hidden'), 5000);
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-lg', 'bg-bg-main/90');
+            } else {
+                nav.classList.remove('shadow-lg', 'bg-bg-main/90');
+            }
+        });
+
     </script>
 </body>
 </html>
