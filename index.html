@@ -120,7 +120,6 @@
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
         border-color 0.3s ease,
         box-shadow 0.3s ease;
-      will-change: transform;
     }
 
     /* ============================================
@@ -332,7 +331,6 @@
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
         box-shadow 0.4s ease,
         border-color 0.4s ease;
-      will-change: transform;
     }
 
     .hover-card:hover {
@@ -348,7 +346,6 @@
     .skill-card {
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
         box-shadow 0.4s ease, border-color 0.4s ease;
-      will-change: transform;
     }
 
     .skill-card:hover {
@@ -385,7 +382,6 @@
     .project-card {
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
         box-shadow 0.4s ease, border-color 0.4s ease;
-      will-change: transform;
     }
 
     .project-card:hover {
@@ -682,16 +678,19 @@
   <!-- Optimization: Fixed Background Canvas -->
   <canvas id="constellation-bg" class="fixed top-0 left-0 w-full h-full -z-10 opacity-60 pointer-events-none"></canvas>
 
-  <!-- Background Gradient Blobs -->
+  <!-- Background Gradient Blobs (Optimized radial-gradients, no CSS filters or blend-mode lag) -->
   <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none">
     <div
-      class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-900/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob">
+      class="absolute top-[-10%] left-[-10%] w-96 h-96 rounded-full animate-blob"
+      style="background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, rgba(139, 92, 246, 0) 70%); will-change: transform; transform: translate3d(0,0,0); backface-visibility: hidden;">
     </div>
     <div
-      class="absolute top-[20%] right-[-10%] w-96 h-96 bg-indigo-900/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-2000">
+      class="absolute top-[20%] right-[-10%] w-96 h-96 rounded-full animate-blob animation-delay-2000"
+      style="background: radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, rgba(79, 70, 229, 0) 70%); will-change: transform; transform: translate3d(0,0,0); backface-visibility: hidden;">
     </div>
     <div
-      class="absolute bottom-[-10%] left-[20%] w-96 h-96 bg-blue-900/20 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-4000">
+      class="absolute bottom-[-10%] left-[20%] w-96 h-96 rounded-full animate-blob animation-delay-4000"
+      style="background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0) 70%); will-change: transform; transform: translate3d(0,0,0); backface-visibility: hidden;">
     </div>
   </div>
 
@@ -787,7 +786,7 @@
                 class="absolute inset-6 rounded-full overflow-hidden border-4 border-bg-lighter shadow-2xl shadow-primary/20 animate-float bg-bg-lighter">
                 <img src="https://avatars.githubusercontent.com/u/155081605?v=4" alt="Santosh Kumar"
                   class="w-full h-full object-cover transform scale-105 hover:scale-110 transition-transform duration-700"
-                  loading="eager">
+                  loading="eager" decoding="async">
               </div>
             </div>
           </div>
@@ -808,9 +807,9 @@
             <div class="relative order-2 md:order-1">
               <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-800">
                 <img
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80"
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
                   alt="Coding Workspace"
-                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy">
+                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
               </div>
               <div
                 class="absolute -bottom-6 -right-6 glass-panel p-6 rounded-xl border-l-4 border-l-primary hidden md:block">
@@ -936,18 +935,18 @@
           <article class="glass-panel rounded-2xl overflow-hidden project-card flex flex-col h-full" data-aos="fade-up">
             <div class="img-wrap relative overflow-hidden h-48 bg-gray-800">
               <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent z-10"></div>
-              <img src="https://iili.io/FvaCQ5J.md.png" alt="Music App"
-                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy">
+              <img src="plateshare.png" alt="PlateShare"
+                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy" decoding="async">
             </div>
             <div class="p-6 flex flex-col flex-grow">
-              <h3 class="text-xl font-bold text-white mb-2">Music Learning App</h3>
-              <p class="text-gray-400 text-sm mb-4 line-clamp-3">A comprehensive platform for music education, featuring
-                interactive lessons and progress tracking.</p>
+              <h3 class="text-xl font-bold text-white mb-2">PlateShare 🍲</h3>
+              <p class="text-gray-400 text-sm mb-4 line-clamp-3">A community-driven platform designed to reduce food waste and connect local donors directly with NGOs and volunteers in real-time.</p>
               <div class="mt-auto pt-4 border-t border-gray-800/60 flex justify-between items-center">
-                <span class="text-xs font-mono text-primary">React • Node</span>
-                <a href="https://github.com/santoshkumar187/Music-learning-app" target="_blank"
-                  class="project-link text-gray-400">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span class="text-xs font-mono text-primary">React • Node • MongoDB</span>
+                <a href="https://github.com/santoshkumar187/Plateshare" target="_blank"
+                  class="project-link text-gray-400 flex items-center gap-1.5 text-xs font-semibold hover:text-white transition-colors">
+                  <span>GitHub</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
               </div>
             </div>
@@ -957,18 +956,18 @@
             data-aos-delay="100">
             <div class="img-wrap relative overflow-hidden h-48 bg-gray-800">
               <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent z-10"></div>
-              <img src="https://iili.io/FvYQ4kb.md.png" alt="AI Gen"
-                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy">
+              <img src="samvad.png" alt="Samvad App"
+                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy" decoding="async">
             </div>
             <div class="p-6 flex flex-col flex-grow">
-              <h3 class="text-xl font-bold text-white mb-2">Text to Image Gen</h3>
-              <p class="text-gray-400 text-sm mb-4 line-clamp-3">AI-powered application converting textual descriptions
-                into visual art using modern APIs.</p>
+              <h3 class="text-xl font-bold text-white mb-2">Samvad App 💬</h3>
+              <p class="text-gray-400 text-sm mb-4 line-clamp-3">A real-time chat application built for seamless communication, featuring instant messaging, user authentication, and responsive chat rooms.</p>
               <div class="mt-auto pt-4 border-t border-gray-800/60 flex justify-between items-center">
-                <span class="text-xs font-mono text-primary">React • OpenAI</span>
-                <a href="https://github.com/santoshkumar187/Text_to_Image_Gen" target="_blank"
-                  class="project-link text-gray-400">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span class="text-xs font-mono text-primary">React • Node • Socket.io</span>
+                <a href="https://github.com/santoshkumar187/Samvad_App" target="_blank"
+                  class="project-link text-gray-400 flex items-center gap-1.5 text-xs font-semibold hover:text-white transition-colors">
+                  <span>GitHub</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
               </div>
             </div>
@@ -979,7 +978,7 @@
             <div class="img-wrap relative overflow-hidden h-48 bg-gray-800">
               <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent z-10"></div>
               <img src="https://www.zoho.com/books/kb/images/payments/make-payment.png" alt="Payment System"
-                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy">
+                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy" decoding="async">
             </div>
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-white mb-2">Payment Record System</h3>
@@ -988,8 +987,9 @@
               <div class="mt-auto pt-4 border-t border-gray-800/60 flex justify-between items-center">
                 <span class="text-xs font-mono text-primary">PHP • SQL</span>
                 <a href="https://github.com/santoshkumar187/Pay_Record_System" target="_blank"
-                  class="project-link text-gray-400">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  class="project-link text-gray-400 flex items-center gap-1.5 text-xs font-semibold hover:text-white transition-colors">
+                  <span>GitHub</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
               </div>
             </div>
@@ -1010,12 +1010,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 
           <div class="cert-card glass-panel p-4 rounded-xl flex items-start gap-4"
-            onclick="openModal('https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_1280/B56ZS8O_QnGsAk-/0/1738324834708?e=1779321600&v=beta&t=R7FfadTwQOhAN5T1LGulIWEaaa9StmclNTisI1XUOkw')">
+            onclick="openModal('aws_cloud_foundations.png')">
             <div class="cert-thumb w-16 h-16 bg-gray-800 rounded-xl flex-shrink-0 overflow-hidden">
               <img
-                src="https://media.licdn.com/dms/image/v2/D5622AQESjDZ-7dtuaA/feedshare-shrink_1280/B56ZS8O_QnGsAk-/0/1738324834708?e=1779321600&v=beta&t=R7FfadTwQOhAN5T1LGulIWEaaa9StmclNTisI1XUOkw"
+                src="aws_cloud_foundations.png"
                 class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
-                alt="AWS Certification" loading="lazy">
+                alt="AWS Certification" loading="lazy" decoding="async">
             </div>
             <div>
               <h4 class="cert-title text-white font-bold text-base leading-tight mb-1">AWS Cloud Computing</h4>
@@ -1029,7 +1029,7 @@
               <img
                 src="https://media.licdn.com/dms/image/v2/D5622AQFO30-Sm6vVsA/feedshare-shrink_800/B56ZjmyJ7ZHAAg-/0/1756218567829?e=1779321600&v=beta&t=NquV8m2Qp3FEtj_24EqHeiw8VJ0uTilfnvj2N0Y50Ow"
                 alt="Full-Stack Internship"
-                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" loading="lazy">
+                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" loading="lazy" decoding="async">
             </div>
             <div>
               <h4 class="cert-title text-white font-bold text-base leading-tight mb-1">Full-Stack Internship</h4>
@@ -1042,7 +1042,7 @@
             <div class="cert-thumb w-16 h-16 bg-gray-800 rounded-xl flex-shrink-0 overflow-hidden">
               <img
                 src="https://media.licdn.com/dms/image/v2/D4E22AQFy05bv9luTQw/feedshare-shrink_800/B4EZnJqLlUIIAk-/0/1760024904531?e=1779321600&v=beta&t=ys7o1mYx_S0UC1fD6JlUH4cFbRHIx5-Ta-gDexUmz60"
-                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" loading="lazy">
+                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" loading="lazy" decoding="async">
             </div>
             <div>
               <h4 class="cert-title text-white font-bold text-base leading-tight mb-1">Generative AI</h4>
@@ -1056,7 +1056,7 @@
               <img
                 src="https://media.licdn.com/dms/image/v2/D5622AQGYayAUqO7ohw/feedshare-shrink_800/feedshare-shrink_800/0/1724984846628?e=1779321600&v=beta&t=dysUtdbUtoFK10yj20iGrIliz5bW4p2XFhr-dtVxOKY"
                 alt="Database Cert" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
-                loading="lazy">
+                loading="lazy" decoding="async">
             </div>
             <div>
               <h4 class="cert-title text-white font-bold text-base leading-tight mb-1">Database Cert</h4>
@@ -1070,7 +1070,7 @@
               <img
                 src="https://media.licdn.com/dms/image/v2/D4E22AQECyxnw9-y-0g/feedshare-shrink_800/B4EZnJnUZMJ0Ag-/0/1760024152382?e=1779321600&v=beta&t=W_ipFIeey-A3czYRi1ts2KQIWOS83_WgjrBcCjbqw60"
                 alt="JavaScript Cert" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
-                loading="lazy">
+                loading="lazy" decoding="async">
             </div>
             <div>
               <h4 class="cert-title text-white font-bold text-base leading-tight mb-1">JavaScript Cert</h4>
@@ -1159,7 +1159,7 @@
       <i class="fa-solid fa-xmark text-3xl"></i>
     </button>
     <img id="modal-image" src=""
-      class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-gray-700 transform scale-95 transition-transform duration-300">
+      class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-gray-700 transform scale-95 transition-transform duration-300" decoding="async">
   </div>
 
   <!-- NEW: Admin Login Modal (Fixed Alert Issue) -->
@@ -1414,9 +1414,8 @@
 
     let width, height;
     let points = [];
-    // Reduce point count significantly on mobile
     let isMobile = window.innerWidth < 768;
-    const pointCount = isMobile ? 25 : 60; // Reduced from typical 100+
+    const pointCount = isMobile ? 25 : 60;
     const connectionDist = isMobile ? 80 : 130;
     const connectionDistSq = connectionDist * connectionDist;
 
@@ -1432,7 +1431,6 @@
       constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        // Faster, swift movement
         this.vx = (Math.random() - 0.5) * 0.8;
         this.vy = (Math.random() - 0.5) * 0.8;
         this.size = Math.random() * 2;
@@ -1442,16 +1440,8 @@
         this.x += this.vx;
         this.y += this.vy;
 
-        // Bounce off edges
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
-      }
-
-      draw() {
-        ctx.fillStyle = 'rgba(139, 92, 246, 0.5)'; // Primary color
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
       }
     }
 
@@ -1463,49 +1453,89 @@
       }
     }
 
+    let animationFrameId = null;
+    let isTabVisible = true;
+
     function animate() {
       ctx.clearRect(0, 0, width, height);
 
-      // Spatial optimization: Double loop but strictly capped
+      // 1. Update all points
+      for (let i = 0; i < points.length; i++) {
+        points[i].update();
+      }
+
+      // 2. Draw all lines in a single path (huge performance benefit: 1 draw call instead of ~200+)
+      ctx.strokeStyle = 'rgba(139, 92, 246, 0.12)';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
       for (let i = 0; i < points.length; i++) {
         const p1 = points[i];
-        p1.update();
-        p1.draw();
-
         for (let j = i + 1; j < points.length; j++) {
           const p2 = points[j];
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
 
-          // Quick check before sqrt
-          if (Math.abs(dx) > connectionDist || Math.abs(dy) > connectionDist) continue;
-
-          const distSq = dx * dx + dy * dy;
-
-          if (distSq < connectionDistSq) {
-            const alpha = 1 - (distSq / connectionDistSq);
-            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha * 0.3})`; // Low opacity for performance
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
+          if (Math.abs(dx) < connectionDist && Math.abs(dy) < connectionDist) {
+            const distSq = dx * dx + dy * dy;
+            if (distSq < connectionDistSq) {
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+            }
           }
         }
       }
-      requestAnimationFrame(animate);
+      ctx.stroke();
+
+      // 3. Draw all points in a single path (1 draw call)
+      ctx.fillStyle = 'rgba(139, 92, 246, 0.45)';
+      ctx.beginPath();
+      for (let i = 0; i < points.length; i++) {
+        const p = points[i];
+        ctx.moveTo(p.x + p.size, p.y);
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      }
+      ctx.fill();
+
+      animationFrameId = requestAnimationFrame(animate);
     }
+
+    function startAnimation() {
+      if (!animationFrameId && isTabVisible) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    }
+
+    function stopAnimation() {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      isTabVisible = document.visibilityState === 'visible';
+      if (isTabVisible) {
+        startAnimation();
+      } else {
+        stopAnimation();
+      }
+    });
 
     // Defer canvas start to prioritize UI loading
     window.addEventListener('load', () => {
       initCanvas();
-      animate();
+      startAnimation();
     });
 
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-      resize();
-      // Re-init points on massive resize to keep density correct
-      if (points.length !== (isMobile ? 25 : 60)) initCanvas();
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        resize();
+        if (points.length !== (isMobile ? 25 : 60)) {
+          initCanvas();
+        }
+      }, 150);
     });
 
     // --- 3. UI INTERACTION ---
@@ -1606,15 +1636,19 @@
       setTimeout(() => msgDiv.classList.add('hidden'), 5000);
     }
 
-    // Navbar Scroll Effect
+    // Navbar Scroll Effect (Optimized with cached selector, state check, and passive listener)
+    const nav = document.getElementById('navbar');
+    let hasScrolled = false;
     window.addEventListener('scroll', () => {
-      const nav = document.getElementById('navbar');
-      if (window.scrollY > 20) {
+      const shouldBeSticky = window.scrollY > 20;
+      if (shouldBeSticky && !hasScrolled) {
         nav.classList.add('shadow-lg', 'bg-bg-main/90');
-      } else {
+        hasScrolled = true;
+      } else if (!shouldBeSticky && hasScrolled) {
         nav.classList.remove('shadow-lg', 'bg-bg-main/90');
+        hasScrolled = false;
       }
-    });
+    }, { passive: true });
 
   </script>
 </body>
