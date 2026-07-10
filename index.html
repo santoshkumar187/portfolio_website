@@ -1283,15 +1283,26 @@
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     // Firebase Configuration
-    const firebaseConfig = JSON.parse(__firebase_config);
+    let firebaseConfig = null;
+    let app = null, auth = null, db = null;
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+    if (typeof __firebase_config !== 'undefined') {
+      try {
+        firebaseConfig = JSON.parse(__firebase_config);
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+      } catch (err) {
+        console.warn("Failed to parse Firebase config:", err);
+      }
+    } else {
+      console.log("Firebase config not defined, running in offline mode.");
+    }
 
     // --- 1. AUTHENTICATION & INIT ---
     async function initAuth() {
+      if (!auth) return;
       try {
         if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
           await signInWithCustomToken(auth, __initial_auth_token);
@@ -1303,14 +1314,16 @@
       }
     }
 
-    initAuth();
+    if (auth) {
+      initAuth();
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User authenticated:", user.uid);
-        setupRealtimeListener();
-      }
-    });
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log("User authenticated:", user.uid);
+          setupRealtimeListener();
+        }
+      });
+    }
 
     // --- 2. SAVE MESSAGE TO FIRESTORE ---
     const contactForm = document.getElementById('contactForm');
@@ -1323,6 +1336,10 @@
 
       if (!name || !email || !message) return;
 
+      if (!db) {
+        console.log("Offline mode: Firebase database is not initialized.");
+        return;
+      }
       try {
         const messagesRef = collection(db, 'artifacts', appId, 'public', 'data', 'contact_messages');
         await addDoc(messagesRef, {
@@ -1692,27 +1709,10 @@
     }
 
     function printCertViewer() {
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>Print ${viewerFilename.innerText}</title>
-            <style>
-              body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #fff; }
-              img { max-width: 100%; max-height: 100%; object-fit: contain; }
-            </style>
-          </head>
-          <body>
-            <img src="${viewerMainImage.src}" />
-          </body>
-        </html>
-      `);
-      printWindow.document.close();
-      printWindow.focus();
-      printWindow.onload = function() {
-        printWindow.print();
-        printWindow.close();
-      };
+      const printWindow = window.open(viewerMainImage.src, '_blank');
+      if (printWindow) {
+        printWindow.focus();
+      }
     }
 
     // Close modal on outside click
